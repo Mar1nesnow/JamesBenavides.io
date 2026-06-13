@@ -121,13 +121,15 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
 .media-card{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:18px 20px;box-shadow:0 1px 6px rgba(26,78,110,.06);backdrop-filter:blur(4px);}
 .link-list{list-style:none;display:flex;flex-direction:column;gap:16px;}
+.link-list li+li{border-top:1px solid var(--line);padding-top:16px;}
 .link-list .ll-meta{font-family:var(--mono);font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;display:block;margin-bottom:2px;}
 .link-list .ll-title{font-weight:500;display:block;color:var(--ocean-mid);font-size:.93rem;}
 .link-list .ll-desc{font-size:.85rem;color:var(--muted-dark);display:block;margin-top:4px;line-height:1.5;}
+.ll-authored{display:inline-block;font-family:var(--mono);font-size:.62rem;color:#2a7a50;background:#e0f4eb;border:1px solid rgba(42,122,80,.2);border-radius:4px;padding:1px 7px;margin-top:5px;letter-spacing:.4px;}
 .media-section{margin-bottom:32px;}
 .media-section-label{font-family:var(--mono);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:6px;}
 
-/* ---- MAP ---- */
+/* MAP */
 .map-section{margin-bottom:32px;}
 .map-label{font-family:var(--mono);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block;}
 #about-map{
@@ -136,17 +138,13 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
   box-shadow:0 1px 6px rgba(26,78,110,.08);
   z-index:2;
 }
-/* Leaflet popup styling */
 .leaflet-popup-content-wrapper{
   border-radius:7px !important;
   box-shadow:0 4px 16px rgba(26,78,110,.18) !important;
   border:1px solid var(--line) !important;
   padding:0 !important;
 }
-.leaflet-popup-content{
-  margin:0 !important;
-  font-family:var(--sans) !important;
-}
+.leaflet-popup-content{margin:0 !important;font-family:var(--sans) !important;}
 .map-popup{padding:10px 14px;}
 .map-popup-name{font-weight:600;font-size:.88rem;color:var(--ocean-deep);margin-bottom:2px;}
 .map-popup-loc{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.3px;}
@@ -221,12 +219,10 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>Welcome to my page! 🌿🐟🦅</p>
       </div>
     </div>
-
     <div class="map-section">
       <span class="map-label">Places I've Worked</span>
       <div id="about-map"></div>
     </div>
-
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
 
@@ -241,7 +237,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-card-title">Land Stewardship</div>
       <div class="skill-card-summary">// restoring native prairie, woodland, and riparian habitats</div>
       <div class="skill-card-body">
-        <p>This work involves assessing a habitat and deciding what is best for that space, usually resulting in timber stand improvement and/or invasive species removal. </p>
+        <p>This work involves assessing a habitat and deciding what is best for that space, usually resulting in timber stand improvement and/or invasive species removal.</p>
         <p>For example, tackling invasive honeysuckle has been a large part of my work, but deciding to foliar spray vs. hack-and-squirt really depends on the time of year and what species surround the invasives. Taking down trees that appear healthy but are too dense also requires an understanding of spacing that roughly separates a savanna from a woodland.</p>
       </div>
       <div class="skill-tags">
@@ -295,6 +291,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="page-title">Featured Media</div>
       <p class="page-tagline">writing, interviews, videos, and features across formats and audiences.</p>
     </div>
+
     <div class="media-section">
       <div class="media-section-label">Podcast</div>
       <div class="media-card">
@@ -306,6 +303,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         </ul>
       </div>
     </div>
+
     <div class="media-section">
       <div class="media-section-label">Video</div>
       <div class="media-card">
@@ -317,21 +315,28 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         </ul>
       </div>
     </div>
+
     <div class="media-section">
       <div class="media-section-label">Press &amp; Articles</div>
       <div class="media-card">
         <ul class="link-list">
           <li>
+            <a href="https://www.paenflowered.org/prescribedburns" target="_blank"><span class="ll-meta">PAEnflowered · May 2026</span><span class="ll-title">Burns to Blooms: Field Notes from Prescribed Burns</span></a>
+            <span class="ll-desc">A reflection on my first year conducting prescribed burns — diving into the history of burning and its ecological benefits.</span>
+            <span class="ll-authored">authored</span>
+          </li>
+          <li>
             <a href="http://bowdoin.edu/news/2023/12/schiller-semester-ends-with-a-tidal-wave-of-student-research.html" target="_blank"><span class="ll-meta">Bowdoin News · Dec 2023</span><span class="ll-title">Schiller Semester: A Tidal Wave of Student Research</span></a>
-            <span class="ll-desc">Highlighting the cohort of Coastal Studies Program at Bowdoin College - a selective programming focusing on marine science and independent research. My work focused on scallop swimming behavior in response to light gradients. </span>
+            <span class="ll-desc">Highlighting the cohort of Coastal Studies Program at Bowdoin College - a selective programming focusing on marine science and independent research. My work focused on scallop swimming behavior in response to light gradients.</span>
           </li>
           <li>
             <a href="https://www.bowdoin.edu/news/2023/08/coastal-research-reveals-complexities-marine-life.html" target="_blank"><span class="ll-meta">Bowdoin News · Aug 2023</span><span class="ll-title">Coastal Research Reveals Complexities of Marine Life</span></a>
-            <span class="ll-desc">Highlighting marine science summer research fellows at Bowdoin College. My research focused on sea star behavior in warming waters. </span>
+            <span class="ll-desc">Highlighting marine science summer research fellows at Bowdoin College. My research focused on sea star behavior in warming waters.</span>
           </li>
         </ul>
       </div>
     </div>
+
     <div class="media-section">
       <div class="media-section-label">Fellowships &amp; Features</div>
       <div class="media-card">
@@ -343,6 +348,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         </ul>
       </div>
     </div>
+
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
 
@@ -390,7 +396,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-/* ======== GALLERIES ======== */
+/* GALLERIES */
 const photoLists = {
   'gallery-stewardship':  ['Stewardship1.jpg','Stewardship2.jpg'],
   'gallery-fire':          ['Fire1.jpg','Fire2.jpg'],
@@ -421,9 +427,8 @@ function openLightbox(src){document.getElementById('lightboxImg').src=src;docume
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 
-/* ======== NAV ======== */
+/* NAV */
 let mapInitialized = false;
-
 function showPage(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -431,9 +436,7 @@ function showPage(id){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   const map={about:0,skills:1,engagement:2,media:3};
   if(map[id]!==undefined) document.querySelectorAll('.tab-btn')[map[id]].classList.add('active');
-  if(id === 'about' && !mapInitialized) {
-    setTimeout(initMap, 50);
-  }
+  if(id==='about'&&!mapInitialized) setTimeout(initMap,50);
 }
 function showHome(){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -442,68 +445,37 @@ function showHome(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ======== LEAFLET MAP ======== */
+/* LEAFLET MAP */
 function initMap(){
-  if(mapInitialized) return;
-  mapInitialized = true;
-
-  const places = [
-    { name: 'Duke University Marine Lab',       location: 'Beaufort, North Carolina',  lat: 34.7182, lng: -76.6650 },
-    { name: 'Darling Marine Center',             location: 'Walpole, Maine',             lat: 43.9274, lng: -69.5614 },
-    { name: 'Schiller Coastal Studies Center',  location: 'Harpswell, Maine',           lat: 43.7318, lng: -69.9942 },
-    { name: 'Whiterock Conservancy',             location: 'Coon Rapids, Iowa',          lat: 41.8738, lng: -94.6797 },
-    { name: 'Bowdoin College',                   location: 'Brunswick, Maine',           lat: 43.9073, lng: -69.9635 },
-    { name: 'Dickinson Marine Lab',              location: 'Dickinson, Texas',           lat: 29.4608, lng: -95.0516 },
-    { name: 'DIS Copenhagen',                    location: 'Copenhagen, Denmark',        lat: 55.6761, lng: 12.5683 },
+  if(mapInitialized)return;
+  mapInitialized=true;
+  const places=[
+    {name:'Duke University Marine Lab',      location:'Beaufort, North Carolina', lat:34.7182,lng:-76.6650},
+    {name:'Darling Marine Center',            location:'Walpole, Maine',            lat:43.9274,lng:-69.5614},
+    {name:'Schiller Coastal Studies Center', location:'Harpswell, Maine',          lat:43.7318,lng:-69.9942},
+    {name:'Whiterock Conservancy',            location:'Coon Rapids, Iowa',         lat:41.8738,lng:-94.6797},
+    {name:'Bowdoin College',                  location:'Brunswick, Maine',          lat:43.9073,lng:-69.9635},
+    {name:'Dickinson Marine Lab',             location:'Dickinson, Texas',          lat:29.4608,lng:-95.0516},
+    {name:'DIS Copenhagen',                   location:'Copenhagen, Denmark',       lat:55.6761,lng:12.5683},
   ];
-
-  const map = L.map('about-map', {
-    center: [45, -30],
-    zoom: 2,
-    minZoom: 1,
-    maxZoom: 13,
-    scrollWheelZoom: true,
-    zoomControl: true,
-  });
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
-    subdomains: 'abcd',
-    maxZoom: 19,
+  const map=L.map('about-map',{center:[45,-30],zoom:2,minZoom:1,maxZoom:13,scrollWheelZoom:true,zoomControl:true});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    subdomains:'abcd',maxZoom:19,
   }).addTo(map);
-
-  const dotIcon = L.divIcon({
-    className: '',
-    html: `<div style="
-      width:13px;height:13px;
-      background:#2e7da6;
-      border:2.5px solid #fff;
-      border-radius:50%;
-      box-shadow:0 1px 5px rgba(26,78,110,.35);
-    "></div>`,
-    iconSize: [13, 13],
-    iconAnchor: [6, 6],
-    popupAnchor: [0, -10],
+  const dotIcon=L.divIcon({
+    className:'',
+    html:`<div style="width:13px;height:13px;background:#2e7da6;border:2.5px solid #fff;border-radius:50%;box-shadow:0 1px 5px rgba(26,78,110,.35);"></div>`,
+    iconSize:[13,13],iconAnchor:[6,6],popupAnchor:[0,-10],
   });
-
-  places.forEach(p => {
-    const popup = L.popup({
-      closeButton: false,
-      offset: [0, -4],
-      className: 'clean-popup',
-    }).setContent(`
-      <div class="map-popup">
-        <div class="map-popup-name">${p.name}</div>
-        <div class="map-popup-loc">${p.location}</div>
-      </div>
-    `);
-    L.marker([p.lat, p.lng], { icon: dotIcon })
-      .addTo(map)
-      .bindPopup(popup);
+  places.forEach(p=>{
+    const popup=L.popup({closeButton:false,offset:[0,-4],className:'clean-popup'})
+      .setContent(`<div class="map-popup"><div class="map-popup-name">${p.name}</div><div class="map-popup-loc">${p.location}</div></div>`);
+    L.marker([p.lat,p.lng],{icon:dotIcon}).addTo(map).bindPopup(popup);
   });
 }
 
-/* ======== ASCII FISH CANVAS ======== */
+/* ASCII FISH */
 const canvas=document.getElementById('fishCanvas');
 const ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
@@ -513,52 +485,30 @@ const ASCII_FISH_R=['>><>','><>','>>><>','><(((*>','><>','>><(('];
 const ASCII_FISH_L=['<><<','<><','<><<<','<*(((<><','<><','((<< <'];
 
 class AsciiPellet{
-  constructor(x,y){
-    this.x=x+(Math.random()-.5)*18;this.y=y;
-    this.vy=0.4+Math.random()*0.5;this.eaten=false;this.alpha=1;
-    this.char=['·','•','.','o'][Math.floor(Math.random()*4)];
-  }
-  update(){
-    if(!this.eaten){this.vy=Math.min(this.vy+0.03,1.2);this.y+=this.vy;}
-    else{this.alpha=Math.max(0,this.alpha-0.08);}
-  }
-  draw(){
-    if(this.alpha<=0)return;
-    ctx.save();ctx.globalAlpha=this.alpha*0.85;
-    ctx.font="12px 'JetBrains Mono',monospace";ctx.fillStyle='#b8883a';
-    ctx.fillText(this.char,this.x,this.y);ctx.restore();
-  }
+  constructor(x,y){this.x=x+(Math.random()-.5)*18;this.y=y;this.vy=0.4+Math.random()*0.5;this.eaten=false;this.alpha=1;this.char=['·','•','.','o'][Math.floor(Math.random()*4)];}
+  update(){if(!this.eaten){this.vy=Math.min(this.vy+0.03,1.2);this.y+=this.vy;}else{this.alpha=Math.max(0,this.alpha-0.08);}}
+  draw(){if(this.alpha<=0)return;ctx.save();ctx.globalAlpha=this.alpha*0.85;ctx.font="12px 'JetBrains Mono',monospace";ctx.fillStyle='#b8883a';ctx.fillText(this.char,this.x,this.y);ctx.restore();}
   get dead(){return this.eaten&&this.alpha<=0;}
 }
 
 class AsciiRipple{
   constructor(x,y){this.x=x;this.y=y;this.r=1;this.alpha=0.3;}
   update(){this.r+=0.85;this.alpha-=0.012;}
-  draw(){
-    if(this.alpha<=0)return;
-    ctx.save();ctx.globalAlpha=Math.max(0,this.alpha);
-    ctx.strokeStyle='rgba(46,125,166,0.5)';ctx.lineWidth=1;
-    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.stroke();ctx.restore();
-  }
+  draw(){if(this.alpha<=0)return;ctx.save();ctx.globalAlpha=Math.max(0,this.alpha);ctx.strokeStyle='rgba(46,125,166,0.5)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.stroke();ctx.restore();}
   get dead(){return this.alpha<=0;}
 }
 
 class Asciifish{
   constructor(){this.init(true);}
   init(first=false){
-    const right=Math.random()<.5;
-    this.dir=right?1:-1;
+    const right=Math.random()<.5;this.dir=right?1:-1;
     const pool=right?ASCII_FISH_R:ASCII_FISH_L;
     this.body=pool[Math.floor(Math.random()*pool.length)];
-    this.size=0.8+Math.random()*0.55;
-    this.spd=(0.28+Math.random()*0.5)*this.size;
+    this.size=0.8+Math.random()*0.55;this.spd=(0.28+Math.random()*0.5)*this.size;
     this.x=first?Math.random()*canvas.width:(right?-120:canvas.width+120);
-    this.baseY=40+Math.random()*(canvas.height*0.82);
-    this.y=this.baseY;
-    this.bobA=2+Math.random()*5;this.bobF=0.18+Math.random()*0.35;
-    this.bobP=Math.random()*Math.PI*2;
-    this.target=null;this.excited=0;
-    this.opacity=0.22+Math.random()*0.3;
+    this.baseY=40+Math.random()*(canvas.height*0.82);this.y=this.baseY;
+    this.bobA=2+Math.random()*5;this.bobF=0.18+Math.random()*0.35;this.bobP=Math.random()*Math.PI*2;
+    this.target=null;this.excited=0;this.opacity=0.22+Math.random()*0.3;
     const colors=['#1a6e8e','#2e7da6','#3a9fba','#1a4e6e','#2a8060'];
     this.color=colors[Math.floor(Math.random()*colors.length)];
   }
@@ -590,16 +540,12 @@ class Asciifish{
 }
 
 const ripples=[];let lastRipT=0;
-function spawnRipple(x,y){
-  const now=performance.now();if(now-lastRipT<70)return;lastRipT=now;
-  ripples.push(new AsciiRipple(x,y));
-}
+function spawnRipple(x,y){const now=performance.now();if(now-lastRipT<70)return;lastRipT=now;ripples.push(new AsciiRipple(x,y));}
 window.addEventListener('mousemove',e=>spawnRipple(e.clientX,e.clientY));
 window.addEventListener('click',e=>{for(let i=0;i<2;i++)ripples.push(new AsciiRipple(e.clientX+Math.random()*20-10,e.clientY+Math.random()*20-10));});
 
 const fishes=Array.from({length:10},()=>new Asciifish());
 const foods=[];let t=0;
-
 function loop(){
   ctx.clearRect(0,0,canvas.width,canvas.height);t+=0.016;
   for(let i=ripples.length-1;i>=0;i--){ripples[i].update();if(ripples[i].dead)ripples.splice(i,1);}
@@ -611,7 +557,7 @@ function loop(){
 }
 loop();
 
-/* ======== FOOD BAG DRAG ======== */
+/* FOOD BAG */
 const bag=document.getElementById('foodBag');
 const ghost=document.getElementById('dragGhost');
 let dragging=false;
