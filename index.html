@@ -10,21 +10,20 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#eef6fa;
+  --bg:#16313b;
   --ink:#1c2f3a;
   --muted:#6b8a99;
+  --muted-dark:#a9cdd6;
   --line:#cde0ea;
   --ocean-deep:#1a4e6e;
   --ocean-mid:#2e7da6;
   --ocean-light:#8ac8e0;
-  --sand-light:#f5ead8;
-  --sand-mid:#e8d4b0;
-  --sand-dark:#c8a87a;
-  --shell-stroke:#9a7850;
   --card-bg:rgba(255,255,255,0.82);
   --header-bg:rgba(180,210,230,0.78);
   --tag-bg:#d8edf7;
   --tag-ink:#1a4e6e;
+  --pad-ink:#1f3320;
+  --pad-ink-soft:#33502f;
   --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
 }
 html{scroll-behavior:smooth}
@@ -35,11 +34,14 @@ body{
 }
 body::before{
   content:'';position:fixed;inset:0;z-index:-2;
-  background:linear-gradient(170deg,#f0f8fc 0%,#e4f2f8 40%,#d4eaf6 70%,#c8dff0 100%);
+  background:
+    radial-gradient(ellipse 70% 50% at 78% 14%, rgba(232,162,108,.22), transparent 60%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(10,28,34,.65), transparent 65%),
+    linear-gradient(160deg,#2c5460 0%, #1f4450 35%, #173640 65%, #102832 100%);
 }
 body::after{
-  content:'';position:fixed;bottom:0;left:0;right:0;height:120px;z-index:-1;
-  background:linear-gradient(0deg,rgba(200,223,240,.5) 0%,transparent 100%);
+  content:'';position:fixed;inset:0;z-index:3;
+  background:radial-gradient(ellipse 80% 80% at 50% 45%, transparent 55%, rgba(6,18,24,.55) 100%);
   pointer-events:none;
 }
 #fishCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
@@ -65,59 +67,52 @@ body::after{
 a{color:var(--ocean-mid);text-decoration:none;border-bottom:1px solid var(--ocean-light);transition:border-color .15s,color .15s}
 a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
-/* ---- Home ---- */
-#home{padding-bottom:0;}
-.home-name{font-size:2.4rem;font-weight:600;letter-spacing:-.2px;margin-bottom:6px;color:var(--ocean-deep)}
-.home-role{color:var(--muted);font-size:.95rem;margin-bottom:14px}
-.home-tagline{font-size:1rem;color:var(--ink);max-width:52ch;margin-bottom:0}
-.home-spacer{flex:1;min-height:20px}
-.home-socials{display:flex;gap:32px;flex-wrap:wrap;font-size:1.05rem;padding:0 0 22px;}
-.home-socials a{color:var(--ocean-mid);border-color:var(--ocean-light)}
-.home-socials span{color:var(--muted);font-size:.85rem;align-self:center}
+/* ---- Home / Lily Pond ---- */
+#home{padding-bottom:48px;}
+.pond{position:relative;display:flex;flex-direction:column;gap:38px;padding:14px 0 36px;}
 
-/* ---- Beach scene ---- */
-.beach-scene{
-  position:relative;
-  width:calc(100% + 96px);
-  margin-left:-48px;
-  flex-shrink:0;
-  overflow:hidden;
+.lily-pad{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  border:none;background:none;padding:0;font-family:var(--sans);
+  cursor:pointer;filter:drop-shadow(0 14px 26px rgba(4,16,20,.45)) drop-shadow(0 2px 6px rgba(4,16,20,.25));
+  transition:transform .3s ease, filter .3s ease;
 }
+.lily-pad:hover{transform:translateY(-5px) scale(1.035);filter:drop-shadow(0 18px 32px rgba(4,16,20,.5)) drop-shadow(0 3px 8px rgba(4,16,20,.3));}
+.lily-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
 
-/* ---- Shell nav ---- */
-.shell-nav{
-  display:flex;
-  justify-content:center;
-  align-items:flex-end;
-  gap:0;
-  position:relative;
-  z-index:2;
-  padding:0 24px;
+.lily-title{
+  align-self:flex-start;width:min(420px,94%);height:340px;
+  transform:rotate(-1.5deg);cursor:default;
 }
-.shell-btn{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  background:none;border:none;cursor:pointer;padding:10px 18px 0;
-  font-family:var(--sans);
-  transition:transform .2s ease;
-  flex:1;max-width:160px;
-}
-.shell-btn:hover{transform:translateY(-5px);}
-.shell-btn:hover .shell-label{color:var(--ocean-mid);}
-.shell-svg{filter:drop-shadow(0 3px 7px rgba(100,70,30,.22));display:block;}
-.shell-label{
-  font-size:.72rem;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--shell-stroke);
-  line-height:1.2;text-align:center;
-  padding-bottom:8px;
-  transition:color .15s;
+.lily-title:hover{transform:rotate(-1.5deg);filter:drop-shadow(0 14px 26px rgba(4,16,20,.45)) drop-shadow(0 2px 6px rgba(4,16,20,.25));}
+.lily-content{position:relative;z-index:1;text-align:left;padding:8% 12% 0 14%;max-width:74%;}
+.home-name{font-size:2.3rem;font-weight:600;letter-spacing:-.2px;margin-bottom:8px;color:var(--pad-ink)}
+.home-role{color:var(--pad-ink-soft);font-size:.92rem;margin-bottom:14px;font-weight:500}
+.home-tagline{font-size:.96rem;color:var(--pad-ink-soft);max-width:30ch;margin-bottom:0;line-height:1.6}
+
+.lily-tabs{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start;}
+.lily-tab{width:165px;height:165px;}
+.lily-tab:nth-child(1){transform:rotate(-4deg);}
+.lily-tab:nth-child(2){transform:rotate(3deg);width:185px;height:185px;}
+.lily-tab:nth-child(3){transform:rotate(-2deg);}
+.lily-tab:nth-child(4){transform:rotate(4deg);width:195px;height:195px;}
+.lily-tab:hover:nth-child(1){transform:rotate(-4deg) translateY(-5px) scale(1.035);}
+.lily-tab:hover:nth-child(2){transform:rotate(3deg) translateY(-5px) scale(1.035);}
+.lily-tab:hover:nth-child(3){transform:rotate(-2deg) translateY(-5px) scale(1.035);}
+.lily-tab:hover:nth-child(4){transform:rotate(4deg) translateY(-5px) scale(1.035);}
+.lily-label{
+  position:relative;z-index:1;font-weight:600;font-size:.98rem;
+  color:var(--pad-ink);text-align:center;padding:0 18px;line-height:1.35;
 }
 
-/* ---- Sandy shore SVG ---- */
-.shore-svg{display:block;width:100%;margin-top:-2px;}
+.home-socials{display:flex;gap:30px;flex-wrap:wrap;font-size:1.02rem;padding:6px 4px 0;}
+.home-socials a{color:#bfe6e0;border-color:rgba(191,230,224,.4)}
+.home-socials a:hover{color:#fff;border-color:#fff}
+.home-socials span{color:var(--muted-dark);font-size:.85rem;align-self:center}
 
 /* ---- Subpage chrome ---- */
-.back{font-family:var(--sans);font-size:.85rem;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;margin-bottom:28px;border-bottom:1px solid transparent;transition:color .15s,border-color .15s;}
-.back:hover{color:var(--ocean-mid);border-color:var(--ocean-light)}
+.back{font-family:var(--sans);font-size:.85rem;color:var(--muted-dark);background:none;border:none;cursor:pointer;padding:0;margin-bottom:28px;border-bottom:1px solid transparent;transition:color .15s,border-color .15s;}
+.back:hover{color:#fff;border-color:rgba(255,255,255,.5)}
 .page-header{
   background:var(--header-bg);border:1px solid rgba(100,160,200,0.45);
   border-radius:10px;padding:18px 24px 20px;margin-bottom:36px;
@@ -128,7 +123,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
 /* ---- About ---- */
 .group{margin-bottom:48px}
-.group-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.group-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted-dark);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid rgba(169,205,214,.25)}
 .entry{margin-bottom:32px}.entry:last-child{margin-bottom:0}
 .entry-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:6px}
 .entry-title{font-weight:600;font-size:1rem;color:var(--ocean-deep)}
@@ -147,20 +142,19 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 .skill-tags{display:flex;flex-wrap:wrap;gap:7px}
 .skill-tag{font-size:.78rem;background:var(--tag-bg);color:var(--tag-ink);padding:3px 10px;border-radius:20px;white-space:nowrap}
 
-/* ---- Photo upload ---- */
-.photo-upload-area{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
-.photo-upload-label{font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px;display:block;}
-.photo-slots{display:flex;gap:10px;flex-wrap:wrap;}
-.photo-slot{position:relative;width:110px;height:78px;border-radius:6px;overflow:hidden;border:1.5px dashed var(--ocean-light);background:rgba(138,200,224,0.07);cursor:pointer;flex-shrink:0;transition:border-color .2s,background .2s;}
-.photo-slot:hover{border-color:var(--ocean-mid);background:rgba(46,125,166,0.09);}
-.photo-slot input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.photo-slot-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;pointer-events:none;}
-.photo-slot-placeholder span{font-size:.62rem;color:var(--muted);text-align:center;line-height:1.3;}
-.slot-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
-.photo-slot.has-img .photo-slot-placeholder{display:none;}
-.photo-slot.has-img .slot-preview{display:block;}
-.slot-remove{display:none;position:absolute;top:3px;right:3px;background:rgba(26,47,58,.72);border:none;border-radius:50%;color:#fff;width:18px;height:18px;font-size:11px;line-height:18px;text-align:center;cursor:pointer;padding:0;z-index:2;}
-.photo-slot.has-img .slot-remove{display:block;}
+/* ---- Photo gallery (GitHub-hosted images) ---- */
+.photo-gallery-area{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
+.photo-gallery-label{font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px;display:block;}
+.photo-gallery{display:flex;gap:10px;flex-wrap:wrap;}
+.photo-gallery img{
+  width:110px;height:78px;object-fit:cover;border-radius:6px;
+  flex-shrink:0;border:1px solid var(--line);
+  box-shadow:0 1px 4px rgba(26,78,110,.08);
+}
+.photo-gallery:empty::after{
+  content:'No photos yet — add <img> tags pointing to files in your /images folder.';
+  font-size:.78rem;color:var(--muted);font-style:italic;
+}
 
 /* ---- Media ---- */
 .link-list{list-style:none;display:flex;flex-direction:column;gap:18px}
@@ -169,17 +163,29 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 .link-list .ll-desc{font-size:.9rem;color:var(--muted);display:block;margin-top:4px}
 .media-section{margin-bottom:44px}
 .media-section-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:8px}
-.site-footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);margin-bottom:48px}
+.site-footer{margin-top:48px;padding-top:20px;border-top:1px solid rgba(169,205,214,.2);font-size:.8rem;color:var(--muted-dark);margin-bottom:48px}
 
 @media(max-width:700px){
   .wrap{padding:56px 22px 0}
-  .beach-scene{width:calc(100% + 44px);margin-left:-22px;}
   .entry-date{margin-left:0}
   .skill-card{padding:16px 18px}
   #foodBag{right:10px}
-  .shell-btn{padding:8px 10px 0;max-width:110px;}
-  .shell-label{font-size:.64rem;}
+  .pond{gap:26px}
+  .lily-title{width:100%;height:300px}
+  .lily-content{padding:9% 8% 0 12%;max-width:80%}
+  .home-name{font-size:1.8rem}
+  .lily-tabs{gap:14px}
+  .lily-tab,.lily-tab:nth-child(2),.lily-tab:nth-child(4){width:130px;height:130px}
+  .lily-label{font-size:.82rem}
 }
+@media(max-width:420px){
+  .lily-title{height:280px}
+  .home-name{font-size:1.55rem}
+  .home-tagline{font-size:.88rem}
+  .lily-tab,.lily-tab:nth-child(2),.lily-tab:nth-child(4){width:108px;height:108px}
+  .lily-label{font-size:.74rem;padding:0 10px}
+}
+
 </style>
 </head>
 <body>
@@ -214,155 +220,150 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
   <!-- HOME -->
   <main id="home" class="view active">
-    <div class="home-name">James Benavides</div>
-    <div class="home-role">Environmental Scientist</div>
-    <p class="home-tagline">interested in marine ecosystems, land stewardship, and environmental education</p>
-    <div class="home-spacer"></div>
-    <div class="home-socials">
-      <a href="https://www.linkedin.com/in/james-benavides/" target="_blank">LinkedIn</a>
-      <a href="mailto:JamesBenavides003@gmail.com">Email</a>
-      <span>Coon Rapids, Iowa</span>
-    </div>
+    <div class="pond">
 
-    <!-- Beach scene with shell nav -->
-    <div class="beach-scene">
+      <!-- Title lily pad -->
+      <div class="lily-pad lily-title">
+        <svg class="lily-svg" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="padTitle" cx="30%" cy="26%" r="88%">
+              <stop offset="0%" stop-color="#a3e085"/>
+              <stop offset="58%" stop-color="#6fb86a"/>
+              <stop offset="100%" stop-color="#3c7a44"/>
+            </radialGradient>
+          </defs>
+          <path d="M120,120 L120,4 A116 116 0 1 1 22,186 Z" fill="url(#padTitle)" stroke="#2c5832" stroke-width="3"/>
+          <g stroke="#5fa05f" stroke-width="1.6" fill="none" opacity="0.55" stroke-linecap="round">
+            <path d="M120,120 L120,14"/>
+            <path d="M120,120 L210,52"/>
+            <path d="M120,120 L235,120"/>
+            <path d="M120,120 L210,188"/>
+            <path d="M120,120 L120,235"/>
+            <path d="M120,120 L38,202"/>
+          </g>
+          <circle cx="120" cy="120" r="7" fill="rgba(255,255,255,.4)"/>
+          <ellipse cx="80" cy="65" rx="55" ry="32" fill="rgba(255,255,255,.12)"/>
+        </svg>
+        <div class="lily-content">
+          <div class="home-name">James Benavides</div>
+          <div class="home-role">Environmental Scientist</div>
+          <p class="home-tagline">interested in marine ecosystems, land stewardship, and environmental education</p>
+        </div>
+      </div>
 
-      <!-- Shell buttons sitting on the sand -->
-      <nav class="shell-nav">
-
-        <!-- About: Nautilus / spiral shell -->
-        <button class="shell-btn" onclick="showPage('about')" aria-label="About">
-          <svg class="shell-svg" width="88" height="82" viewBox="0 0 88 82" fill="none">
-            <!-- main spiral body -->
-            <ellipse cx="44" cy="46" rx="36" ry="30" fill="#e8d0a8" stroke="#9a7850" stroke-width="1.6"/>
-            <!-- inner chambers - spiral effect -->
-            <path d="M44 46 Q58 38 60 46 Q62 56 52 62 Q38 68 28 58 Q16 46 24 34 Q32 20 44 20 Q62 20 70 34 Q78 48 70 60 Q60 72 44 72" fill="none" stroke="#b89060" stroke-width="1.2" opacity="0.7"/>
-            <path d="M44 46 Q52 42 53 47 Q54 54 48 58 Q40 62 34 56 Q26 48 32 40 Q38 32 46 32 Q58 32 64 42 Q70 52 64 62" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.6"/>
-            <path d="M44 46 Q48 44 48 47 Q49 51 46 53 Q42 56 39 53 Q35 49 38 45 Q41 41 45 41 Q51 41 54 47" fill="none" stroke="#9a7850" stroke-width="1" opacity="0.5"/>
-            <!-- eye/center -->
-            <circle cx="44" cy="47" r="5" fill="#c8a878" stroke="#9a7850" stroke-width="1.2"/>
-            <circle cx="44" cy="47" r="2.5" fill="#a88858"/>
-            <!-- ridges on outer edge -->
-            <path d="M20 34 Q16 46 20 58" fill="none" stroke="#b89060" stroke-width="1" opacity="0.5"/>
-            <path d="M68 30 Q76 44 68 60" fill="none" stroke="#b89060" stroke-width="1" opacity="0.5"/>
-            <!-- subtle highlight -->
-            <ellipse cx="36" cy="36" rx="10" ry="7" fill="rgba(255,255,255,0.18)" transform="rotate(-20 36 36)"/>
+      <!-- Tab lily pads -->
+      <nav class="lily-tabs">
+        <button class="lily-pad lily-tab" onclick="showPage('about')">
+          <svg class="lily-svg" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <radialGradient id="padAbout" cx="35%" cy="30%" r="85%">
+                <stop offset="0%" stop-color="#8fcf78"/>
+                <stop offset="60%" stop-color="#5ca866"/>
+                <stop offset="100%" stop-color="#2f5c37"/>
+              </radialGradient>
+            </defs>
+            <g transform="rotate(60 120 120)">
+              <path d="M120,120 L120,6 A114 114 0 1 1 24,184 Z" fill="url(#padAbout)" stroke="#264a2a" stroke-width="3"/>
+              <g stroke="#4f8f57" stroke-width="1.6" fill="none" opacity="0.5" stroke-linecap="round">
+                <path d="M120,120 L120,16"/>
+                <path d="M120,120 L208,55"/>
+                <path d="M120,120 L233,120"/>
+                <path d="M120,120 L208,185"/>
+                <path d="M120,120 L120,233"/>
+                <path d="M120,120 L40,200"/>
+              </g>
+              <circle cx="120" cy="120" r="7" fill="rgba(255,255,255,.35)"/>
+              <ellipse cx="85" cy="70" rx="50" ry="30" fill="rgba(255,255,255,.1)"/>
+            </g>
           </svg>
-          <span class="shell-label">About</span>
+          <span class="lily-label">About</span>
         </button>
 
-        <!-- Field Skills: Scallop shell -->
-        <button class="shell-btn" onclick="showPage('skills')" aria-label="Field / Lab Skills">
-          <svg class="shell-svg" width="94" height="86" viewBox="0 0 94 86" fill="none">
-            <!-- scallop fan base -->
-            <path d="M47 72 Q14 70 8 46 Q4 26 20 16 Q32 8 47 10 Q62 8 74 16 Q90 26 86 46 Q80 70 47 72 Z" fill="#e8c8a0" stroke="#9a7850" stroke-width="1.6"/>
-            <!-- fan ribs radiating from base -->
-            <line x1="47" y1="72" x2="10" y2="38" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="14" y2="24" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="24" y2="13" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="37" y2="10" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="47" y2="10" stroke="#b89060" stroke-width="1.3" opacity="0.7"/>
-            <line x1="47" y1="72" x2="57" y2="10" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="66" y2="13" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="76" y2="22" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <line x1="47" y1="72" x2="82" y2="36" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <!-- scallop hinge bumps along top edge -->
-            <path d="M22 16 Q28 10 35 13 Q41 8 47 10 Q53 8 59 13 Q66 10 72 16" fill="#d4b080" stroke="#9a7850" stroke-width="1.4"/>
-            <!-- small bumps -->
-            <circle cx="27" cy="13" r="3.5" fill="#d4b080" stroke="#9a7850" stroke-width="1.2"/>
-            <circle cx="37" cy="10" r="3.5" fill="#d4b080" stroke="#9a7850" stroke-width="1.2"/>
-            <circle cx="47" cy="9" r="3.5" fill="#d4b080" stroke="#9a7850" stroke-width="1.2"/>
-            <circle cx="57" cy="10" r="3.5" fill="#d4b080" stroke="#9a7850" stroke-width="1.2"/>
-            <circle cx="67" cy="13" r="3.5" fill="#d4b080" stroke="#9a7850" stroke-width="1.2"/>
-            <!-- highlight -->
-            <ellipse cx="35" cy="38" rx="12" ry="18" fill="rgba(255,255,255,0.14)" transform="rotate(-25 35 38)"/>
+        <button class="lily-pad lily-tab" onclick="showPage('skills')">
+          <svg class="lily-svg" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <radialGradient id="padSkills" cx="32%" cy="32%" r="85%">
+                <stop offset="0%" stop-color="#a8dc7e"/>
+                <stop offset="60%" stop-color="#6fb05f"/>
+                <stop offset="100%" stop-color="#386b3a"/>
+              </radialGradient>
+            </defs>
+            <g transform="rotate(150 120 120)">
+              <path d="M120,120 L120,6 A114 114 0 1 1 24,184 Z" fill="url(#padSkills)" stroke="#2c5430" stroke-width="3"/>
+              <g stroke="#5aa056" stroke-width="1.6" fill="none" opacity="0.5" stroke-linecap="round">
+                <path d="M120,120 L120,16"/>
+                <path d="M120,120 L208,55"/>
+                <path d="M120,120 L233,120"/>
+                <path d="M120,120 L208,185"/>
+                <path d="M120,120 L120,233"/>
+                <path d="M120,120 L40,200"/>
+              </g>
+              <circle cx="120" cy="120" r="7" fill="rgba(255,255,255,.35)"/>
+              <ellipse cx="85" cy="70" rx="50" ry="30" fill="rgba(255,255,255,.1)"/>
+            </g>
           </svg>
-          <span class="shell-label">Field &amp; Lab</span>
+          <span class="lily-label">Field &amp; Lab Skills</span>
         </button>
 
-        <!-- Public Engagement: Conch shell -->
-        <button class="shell-btn" onclick="showPage('engagement')" aria-label="Public Engagement">
-          <svg class="shell-svg" width="90" height="92" viewBox="0 0 90 92" fill="none">
-            <!-- conch main body -->
-            <path d="M52 10 Q70 14 76 30 Q82 48 72 62 Q64 74 50 78 Q36 82 26 74 Q14 64 16 50 Q18 36 30 28 Q38 22 42 24 Q34 30 34 40 Q34 52 44 56 Q54 60 60 52 Q66 44 62 36 Q58 28 52 26 Q46 24 44 30 Q42 36 46 40 Q50 44 54 40 Q56 36 54 34 Q52 32 50 34" fill="#e0c09a" stroke="#9a7850" stroke-width="1.5"/>
-            <!-- body shading ridges -->
-            <path d="M26 50 Q24 38 32 30" fill="none" stroke="#b89060" stroke-width="1.2" opacity="0.6"/>
-            <path d="M72 44 Q74 56 66 66" fill="none" stroke="#b89060" stroke-width="1.2" opacity="0.6"/>
-            <path d="M60 22 Q66 28 70 38" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.55"/>
-            <!-- lip of conch -->
-            <path d="M28 60 Q20 52 22 42 Q18 50 22 62 Q28 72 38 76 Q30 72 28 60 Z" fill="#d4a878" stroke="#9a7850" stroke-width="1.2"/>
-            <!-- spire tip -->
-            <path d="M52 10 Q56 6 58 10 Q60 16 54 20 Q50 22 46 20 Q44 16 48 12 Z" fill="#d4b080" stroke="#9a7850" stroke-width="1.2"/>
-            <!-- highlight -->
-            <ellipse cx="42" cy="38" rx="9" ry="14" fill="rgba(255,255,255,0.18)" transform="rotate(15 42 38)"/>
+        <button class="lily-pad lily-tab" onclick="showPage('engagement')">
+          <svg class="lily-svg" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <radialGradient id="padEngagement" cx="34%" cy="30%" r="85%">
+                <stop offset="0%" stop-color="#84cf8a"/>
+                <stop offset="60%" stop-color="#549c5e"/>
+                <stop offset="100%" stop-color="#2c5234"/>
+              </radialGradient>
+            </defs>
+            <g transform="rotate(230 120 120)">
+              <path d="M120,120 L120,6 A114 114 0 1 1 24,184 Z" fill="url(#padEngagement)" stroke="#234626" stroke-width="3"/>
+              <g stroke="#4d8c52" stroke-width="1.6" fill="none" opacity="0.5" stroke-linecap="round">
+                <path d="M120,120 L120,16"/>
+                <path d="M120,120 L208,55"/>
+                <path d="M120,120 L233,120"/>
+                <path d="M120,120 L208,185"/>
+                <path d="M120,120 L120,233"/>
+                <path d="M120,120 L40,200"/>
+              </g>
+              <circle cx="120" cy="120" r="7" fill="rgba(255,255,255,.35)"/>
+              <ellipse cx="85" cy="70" rx="50" ry="30" fill="rgba(255,255,255,.1)"/>
+            </g>
           </svg>
-          <span class="shell-label">Engagement</span>
+          <span class="lily-label">Public Engagement &amp; Education</span>
         </button>
 
-        <!-- Featured Media: Clam / bivalve -->
-        <button class="shell-btn" onclick="showPage('media')" aria-label="Featured Media">
-          <svg class="shell-svg" width="90" height="78" viewBox="0 0 90 78" fill="none">
-            <!-- top valve -->
-            <path d="M45 38 Q18 36 10 24 Q6 14 18 8 Q30 2 45 4 Q60 2 72 8 Q84 14 80 24 Q72 36 45 38 Z" fill="#dcc898" stroke="#9a7850" stroke-width="1.5"/>
-            <!-- top valve ribs -->
-            <path d="M45 38 Q30 28 22 18" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.6"/>
-            <path d="M45 38 Q38 24 36 12" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.6"/>
-            <path d="M45 38 Q45 22 45 8" fill="none" stroke="#b89060" stroke-width="1.2" opacity="0.65"/>
-            <path d="M45 38 Q52 24 54 12" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.6"/>
-            <path d="M45 38 Q60 28 68 18" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.6"/>
-            <!-- hinge -->
-            <ellipse cx="45" cy="4" rx="8" ry="3.5" fill="#c8a870" stroke="#9a7850" stroke-width="1.2"/>
-            <!-- bottom valve -->
-            <path d="M45 40 Q18 42 10 54 Q6 64 18 70 Q30 76 45 74 Q60 76 72 70 Q84 64 80 54 Q72 42 45 40 Z" fill="#e8d4a8" stroke="#9a7850" stroke-width="1.5"/>
-            <!-- bottom valve ribs -->
-            <path d="M45 40 Q30 50 22 60" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.55"/>
-            <path d="M45 40 Q38 54 36 66" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.55"/>
-            <path d="M45 40 Q45 56 45 70" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.6"/>
-            <path d="M45 40 Q52 54 54 66" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.55"/>
-            <path d="M45 40 Q60 50 68 60" fill="none" stroke="#b89060" stroke-width="1.1" opacity="0.55"/>
-            <!-- hinge bottom -->
-            <ellipse cx="45" cy="74" rx="8" ry="3.5" fill="#c8a870" stroke="#9a7850" stroke-width="1.2"/>
-            <!-- highlight top -->
-            <ellipse cx="36" cy="18" rx="10" ry="6" fill="rgba(255,255,255,0.18)" transform="rotate(-15 36 18)"/>
+        <button class="lily-pad lily-tab" onclick="showPage('media')">
+          <svg class="lily-svg" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <radialGradient id="padMedia" cx="32%" cy="28%" r="88%">
+                <stop offset="0%" stop-color="#9fe085"/>
+                <stop offset="58%" stop-color="#67ab63"/>
+                <stop offset="100%" stop-color="#34603a"/>
+              </radialGradient>
+            </defs>
+            <g transform="rotate(310 120 120)">
+              <path d="M120,120 L120,4 A116 116 0 1 1 22,186 Z" fill="url(#padMedia)" stroke="#274d2c" stroke-width="3"/>
+              <g stroke="#56a058" stroke-width="1.6" fill="none" opacity="0.5" stroke-linecap="round">
+                <path d="M120,120 L120,14"/>
+                <path d="M120,120 L210,52"/>
+                <path d="M120,120 L235,120"/>
+                <path d="M120,120 L210,188"/>
+                <path d="M120,120 L120,235"/>
+                <path d="M120,120 L38,202"/>
+              </g>
+              <circle cx="120" cy="120" r="7" fill="rgba(255,255,255,.35)"/>
+              <ellipse cx="80" cy="65" rx="55" ry="32" fill="rgba(255,255,255,.1)"/>
+            </g>
           </svg>
-          <span class="shell-label">Media</span>
+          <span class="lily-label">Featured Media</span>
         </button>
-
       </nav>
 
-      <!-- Sandy shore -->
-      <svg class="shore-svg" viewBox="0 0 780 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#edd9b0"/>
-            <stop offset="100%" stop-color="#d4be90"/>
-          </linearGradient>
-          <!-- subtle sand texture -->
-          <filter id="sandTex">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9 0.4" numOctaves="3" seed="8" result="noise"/>
-            <feColorMatrix type="saturate" values="0" in="noise" result="grey"/>
-            <feBlend in="SourceGraphic" in2="grey" mode="multiply" result="blend"/>
-            <feComposite in="blend" in2="SourceGraphic" operator="in"/>
-          </filter>
-        </defs>
-        <!-- waterline ripple -->
-        <path d="M0 18 Q60 10 130 18 Q200 26 270 16 Q340 6 410 16 Q480 26 550 16 Q620 6 690 16 Q740 22 780 14 L780 0 L0 0 Z"
-              fill="rgba(138,200,224,0.35)"/>
-        <path d="M0 22 Q80 14 160 22 Q240 30 320 20 Q400 10 480 20 Q560 30 640 20 Q710 12 780 18 L780 0 L0 0 Z"
-              fill="rgba(138,200,224,0.18)"/>
-        <!-- main sand body -->
-        <path d="M0 26 Q100 18 200 24 Q300 30 400 22 Q500 14 600 22 Q700 30 780 22 L780 90 L0 90 Z"
-              fill="url(#sandGrad)" filter="url(#sandTex)"/>
-        <!-- a few tiny pebble/seaweed marks -->
-        <ellipse cx="120" cy="52" rx="6" ry="2.5" fill="rgba(160,120,60,0.22)" transform="rotate(-10 120 52)"/>
-        <ellipse cx="320" cy="46" rx="4" ry="2" fill="rgba(100,140,100,0.18)" transform="rotate(8 320 46)"/>
-        <ellipse cx="580" cy="55" rx="7" ry="2.5" fill="rgba(160,120,60,0.18)" transform="rotate(5 580 55)"/>
-        <ellipse cx="660" cy="44" rx="3.5" ry="1.5" fill="rgba(100,140,100,0.2)" transform="rotate(-5 660 44)"/>
-        <ellipse cx="200" cy="68" rx="5" ry="2" fill="rgba(160,120,60,0.15)"/>
-        <ellipse cx="480" cy="70" rx="8" ry="2.5" fill="rgba(160,120,60,0.14)" transform="rotate(-8 480 70)"/>
-      </svg>
-
-    </div><!-- .beach-scene -->
+      <div class="home-socials">
+        <a href="https://www.linkedin.com/in/james-benavides/" target="_blank">LinkedIn</a>
+        <a href="mailto:JamesBenavides003@gmail.com">Email</a>
+        <span>Coon Rapids, Iowa</span>
+      </div>
+    </div>
   </main>
 
   <!-- ABOUT -->
@@ -381,26 +382,52 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
     </div>
     <div class="group">
       <div class="group-label">Experience</div>
+
       <div class="entry">
         <div class="entry-head"><span class="entry-title">Land Operations &amp; Outreach</span><span class="entry-org">— Whiterock Conservancy</span><span class="entry-date">Dec 2025 — now</span></div>
         <p>AmeriCorps member supporting invasive species removal, prescribed burns, and volunteer outreach.</p>
+        <div class="photo-gallery-area">
+          <span class="photo-gallery-label">Photos</span>
+          <div class="photo-gallery" id="gallery-whiterock"></div>
+        </div>
       </div>
+
       <div class="entry">
         <div class="entry-head"><span class="entry-title">Coastal Fisheries Intern</span><span class="entry-org">— Texas Parks &amp; Wildlife</span><span class="entry-date">Jun – Sept 2025</span></div>
         <p>Habitat assessments via sonar scanning, fisheries sampling, and educational programs on harmful algal blooms at Galveston Bay.</p>
+        <div class="photo-gallery-area">
+          <span class="photo-gallery-label">Photos</span>
+          <div class="photo-gallery" id="gallery-tpwd"></div>
+        </div>
       </div>
+
       <div class="entry">
         <div class="entry-head"><span class="entry-title">Aquaculture Researcher</span><span class="entry-org">— Darling Marine Center</span><span class="entry-date">Jun – Aug 2024</span></div>
         <p>Fellowship weaving Indigenous Knowledge and Western Science to research tidal-energy oyster tumbling as a low-cost aquaculture alternative.</p>
+        <div class="photo-gallery-area">
+          <span class="photo-gallery-label">Photos</span>
+          <div class="photo-gallery" id="gallery-darling"></div>
+        </div>
       </div>
+
       <div class="entry">
         <div class="entry-head"><span class="entry-title">Animal Behavior Researcher</span><span class="entry-org">— Bowdoin College</span><span class="entry-date">Jun – Dec 2023</span></div>
         <p>Monitored scallop responses to light and sea star feeding rates to inform fisheries management in the warming Gulf of Maine.</p>
+        <div class="photo-gallery-area">
+          <span class="photo-gallery-label">Photos</span>
+          <div class="photo-gallery" id="gallery-bowdoin-behavior"></div>
+        </div>
       </div>
+
       <div class="entry">
         <div class="entry-head"><span class="entry-title">Microbial Oceanography Researcher</span><span class="entry-org">— Duke University Marine Lab</span><span class="entry-date">Jun – Aug 2022</span></div>
         <p>Created a protocol for isolating Labyrinthulomycetes using pollen baiting and experimental agar treatments, for future studies on marine organic matter decomposition.</p>
+        <div class="photo-gallery-area">
+          <span class="photo-gallery-label">Photos</span>
+          <div class="photo-gallery" id="gallery-duke"></div>
+        </div>
       </div>
+
       <p style="margin-top:6px"><a href="#">view full résumé →</a></p>
     </div>
     <div class="site-footer">Coon Rapids, Iowa</div>
@@ -422,9 +449,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Herbicide application</span><span class="skill-tag">Skid steer operation</span><span class="skill-tag">Chainsaw</span><span class="skill-tag">Brush cutting</span><span class="skill-tag">Invasive species removal</span><span class="skill-tag">Timber Stand Improvement</span>
       </div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-stewardship"></div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-stewardship"></div>
       </div>
     </div>
     <div class="skill-card">
@@ -437,13 +464,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Drip torch operation</span><span class="skill-tag">Fire line holding &amp; monitoring</span><span class="skill-tag">Smoke &amp; weather assessment</span><span class="skill-tag">Firebreak preparation</span>
       </div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-fire">
-          <img src="Whiterock1.jpg" alt="Prescribed fire" style="width:110px;height:78px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <img src="Whiterock2.jpg" alt="Whiterock Conservancy" style="width:110px;height:78px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <img src="Whiterock3.jpg" alt="Whiterock Conservancy" style="width:110px;height:78px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        </div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-fire"></div>
       </div>
     </div>
     <div class="skill-card">
@@ -456,9 +479,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Bag seining</span><span class="skill-tag">Side-scan sonar</span><span class="skill-tag">Quadrat sampling</span><span class="skill-tag">Longline deployment</span><span class="skill-tag">YSI water quality monitoring</span><span class="skill-tag">Small vessel operation</span>
       </div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-fisheries"></div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-fisheries"></div>
       </div>
     </div>
     <div class="skill-card">
@@ -471,9 +494,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Animal husbandry</span><span class="skill-tag">RStudio</span><span class="skill-tag">Excel</span><span class="skill-tag">ArcGIS</span><span class="skill-tag">SOP development</span><span class="skill-tag">Experimentation</span><span class="skill-tag">Poster presentation</span>
       </div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-research"></div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-research"></div>
       </div>
     </div>
     <div class="site-footer">Coon Rapids, Iowa</div>
@@ -544,9 +567,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>I also developed and delivered an educational field program on harmful algal blooms for Texas Master Naturalists, complete with live water quality sampling demonstrations and instruction on HAB identification and proper response protocols.</p>
       </div>
       <div class="skill-tags"><span class="skill-tag">Public speaking</span><span class="skill-tag">Community outreach</span></div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-education"></div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-education"></div>
       </div>
     </div>
     <div class="skill-card">
@@ -557,9 +580,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>Being kind, approachable, and genuinely curious about someone's day consistently produced the best data. Good conversation and good science aren't mutually exclusive.</p>
       </div>
       <div class="skill-tags"><span class="skill-tag">Public engagement</span><span class="skill-tag">Angler surveys</span><span class="skill-tag">Fish identification</span><span class="skill-tag">Data collection</span></div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-surveying"></div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-surveying"></div>
       </div>
     </div>
     <div class="skill-card">
@@ -570,9 +593,9 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>Enthusiasm is contagious. Kindness makes people stop and stay. Those two things make for a great day of outreach.</p>
       </div>
       <div class="skill-tags"><span class="skill-tag">Public engagement</span><span class="skill-tag">Event tabling</span><span class="skill-tag">Science communication</span></div>
-      <div class="photo-upload-area">
-        <span class="photo-upload-label">Your photos</span>
-        <div class="photo-slots" id="slots-tabling"></div>
+      <div class="photo-gallery-area">
+        <span class="photo-gallery-label">Photos</span>
+        <div class="photo-gallery" id="gallery-tabling"></div>
       </div>
     </div>
     <div class="site-footer">Coon Rapids, Iowa</div>
@@ -581,6 +604,60 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 </div>
 
 <script>
+/* ======================================================
+   PHOTOS — EASY EDIT SECTION
+   ======================================================
+   To add a photo to a card:
+   1. Upload your image file to the matching folder in
+      your GitHub repo (e.g. images/whiterock/).
+   2. Type the file's name (with extension) into the
+      list below, in quotes, separated by commas.
+
+   Example:
+   'gallery-fire': ['Whiterock1.jpg', 'Whiterock2.jpg', 'campfire.png'],
+
+   That's it — the page will automatically show those
+   photos under the matching card. Leave a list empty
+   ( [] ) if you don't have photos for that card yet.
+====================================================== */
+const photoLists = {
+  // About page — Experience entries
+  'gallery-whiterock':        [],
+  'gallery-tpwd':              [],
+  'gallery-darling':           [],
+  'gallery-bowdoin-behavior':  [],
+  'gallery-duke':               [],
+
+  // Field & Lab Skills page
+  'gallery-stewardship':  [],
+  'gallery-fire':          ['Whiterock1.jpg', 'Whiterock2.jpg', 'Whiterock3.jpg'],
+  'gallery-fisheries':    [],
+  'gallery-research':     [],
+
+  // Public Engagement page
+  'gallery-education': [],
+  'gallery-surveying': [],
+  'gallery-tabling':   []
+};
+
+// Each gallery's folder name inside /images/ (matches the gallery id without "gallery-")
+function folderFor(id){ return id.replace('gallery-',''); }
+
+function renderGalleries(){
+  Object.keys(photoLists).forEach(id=>{
+    const container=document.getElementById(id);
+    if(!container) return;
+    const folder=folderFor(id);
+    photoLists[id].forEach(filename=>{
+      const img=document.createElement('img');
+      img.src=`images/${folder}/${filename}`;
+      img.alt='';
+      container.appendChild(img);
+    });
+  });
+}
+renderGalleries();
+
 /* ====== NAV ====== */
 function showPage(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -589,43 +666,28 @@ function showPage(id){
 }
 function showHome(){ showPage('home'); }
 
-/* ====== PHOTO SLOTS ====== */
-const SLOT_IDS=['slots-stewardship','slots-fisheries','slots-research','slots-education','slots-surveying','slots-tabling'];
-const PH_SVG=`<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1" y="3.5" width="18" height="14" rx="2.5" stroke="#6b8a99" stroke-width="1.4"/><circle cx="10" cy="10.5" r="3.2" stroke="#6b8a99" stroke-width="1.4"/><path d="M6.5 3.5L6.5 2L13.5 2L13.5 3.5" stroke="#6b8a99" stroke-width="1.4" stroke-linecap="round"/></svg>`;
-function makeSlot(){
-  const slot=document.createElement('div'); slot.className='photo-slot';
-  const input=document.createElement('input'); input.type='file'; input.accept='image/*';
-  const preview=document.createElement('img'); preview.className='slot-preview';
-  const ph=document.createElement('div'); ph.className='photo-slot-placeholder';
-  ph.innerHTML=PH_SVG+'<span>add photo</span>';
-  const rm=document.createElement('button'); rm.className='slot-remove'; rm.textContent='×'; rm.title='Remove';
-  slot.append(input,preview,ph,rm);
-  input.addEventListener('change',function(){
-    const f=this.files[0]; if(!f)return;
-    const r=new FileReader(); r.onload=e=>{preview.src=e.target.result;slot.classList.add('has-img');}; r.readAsDataURL(f);
-  });
-  rm.addEventListener('click',e=>{e.stopPropagation();preview.src='';slot.classList.remove('has-img');input.value='';});
-  return slot;
-}
-SLOT_IDS.forEach(id=>{
-  const c=document.getElementById(id); if(!c)return;
-  for(let i=0;i<3;i++) c.appendChild(makeSlot());
-});
-
-/* ====== CANVAS FISH ====== */
+/* ====== CANVAS: KOI POND + RIPPLES ====== */
 const canvas=document.getElementById('fishCanvas'),ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resize(); window.addEventListener('resize',resize);
-const COLORS=[{body:'#f0a860',tail:'#d48030'},{body:'#70c8e0',tail:'#3090b8'},{body:'#f08878',tail:'#c85848'},{body:'#80c880',tail:'#409040'},{body:'#b8a0d8',tail:'#7860a8'},{body:'#f8d060',tail:'#d0a020'}];
+
+const KOI_VARIANTS=[
+  {base:'#f7f1e3',tail:'rgba(247,241,227,0.4)',patches:[{c:'#d9472e',dx:-0.04,dy:-0.16,rx:0.46,ry:0.24},{c:'#262220',dx:0.24,dy:0.16,rx:0.16,ry:0.13}]},
+  {base:'#f7f1e3',tail:'rgba(247,241,227,0.4)',patches:[{c:'#d9472e',dx:0.10,dy:-0.10,rx:0.5,ry:0.24}]},
+  {base:'#ece6da',tail:'rgba(236,230,218,0.4)',patches:[{c:'#262220',dx:-0.12,dy:0.10,rx:0.22,ry:0.16},{c:'#d9472e',dx:0.20,dy:-0.10,rx:0.3,ry:0.2}]},
+  {base:'#f3c465',tail:'rgba(243,196,101,0.4)',patches:[{c:'#fdf6e3',dx:-0.10,dy:-0.04,rx:0.34,ry:0.22}]},
+  {base:'#e7e1d2',tail:'rgba(231,225,210,0.4)',patches:[]}
+];
+
 class Fish{
   constructor(){this.init(true);}
   init(first=false){
-    const c=COLORS[Math.floor(Math.random()*COLORS.length)];
-    this.col=c;this.s=14+Math.random()*16;this.spd=0.5+Math.random()*0.8;
+    this.variant=KOI_VARIANTS[Math.floor(Math.random()*KOI_VARIANTS.length)];
+    this.s=18+Math.random()*16;this.spd=0.35+Math.random()*0.6;
     this.dir=Math.random()<.5?1:-1;
     this.x=first?Math.random()*canvas.width:(this.dir===1?-this.s*3:canvas.width+this.s*3);
     this.baseY=80+Math.random()*(canvas.height*0.78);this.y=this.baseY;
-    this.bobA=3+Math.random()*5;this.bobF=0.3+Math.random()*0.6;
+    this.bobA=3+Math.random()*5;this.bobF=0.25+Math.random()*0.45;
     this.bobP=Math.random()*Math.PI*2;this.wagP=Math.random()*Math.PI*2;
     this.target=null;this.excited=0;
   }
@@ -635,24 +697,68 @@ class Fish{
     this.target=best;
     if(this.target){
       const dx=this.target.x-this.x,dy=this.target.y-this.y,d=Math.hypot(dx,dy);
-      this.dir=dx>0?1:-1;this.x+=dx/d*this.spd*2.8;this.y+=dy/d*this.spd*2.8*0.65;
+      this.dir=dx>0?1:-1;this.x+=dx/d*this.spd*2.6;this.y+=dy/d*this.spd*2.6*0.6;
       if(d<8){this.target.eaten=true;this.target=null;this.excited=1;}
     }else{
       this.x+=this.spd*this.dir;
       this.y=this.baseY+Math.sin(t*this.bobF+this.bobP)*this.bobA;
       if(this.x>canvas.width+this.s*3||this.x<-this.s*3)this.init(false);
     }
-    if(this.excited>0)this.excited=Math.max(0,this.excited-0.025);
-    this.wagP+=0.14;
+    if(this.excited>0)this.excited=Math.max(0,this.excited-0.02);
+    this.wagP+=0.12;
   }
   draw(){
-    ctx.save();ctx.translate(this.x,this.y);if(this.dir===-1)ctx.scale(-1,1);ctx.globalAlpha=0.82;
-    const s=this.s,wag=Math.sin(this.wagP)*0.32;
-    ctx.beginPath();ctx.moveTo(-s*.6,0);ctx.lineTo(-s*1.1,-s*.55+wag*s*.6);ctx.lineTo(-s*1.1,s*.55+wag*s*.6);ctx.closePath();ctx.fillStyle=this.col.tail;ctx.fill();
-    ctx.beginPath();ctx.ellipse(0,0,s*.7,s*.32,0,0,Math.PI*2);ctx.fillStyle=this.excited>0?`rgba(255,240,120,${0.6+this.excited*0.4})`:this.col.body;ctx.fill();
-    ctx.beginPath();ctx.moveTo(s*.05,-s*.3);ctx.lineTo(s*.32,-s*.54);ctx.lineTo(s*.52,-s*.3);ctx.closePath();ctx.fillStyle=this.col.tail;ctx.globalAlpha=0.65;ctx.fill();ctx.globalAlpha=0.82;
-    ctx.beginPath();ctx.arc(s*.38,-s*.05,s*.09,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
-    ctx.beginPath();ctx.arc(s*.41,-s*.05,s*.05,0,Math.PI*2);ctx.fillStyle='#333';ctx.fill();
+    ctx.save();ctx.translate(this.x,this.y);if(this.dir===-1)ctx.scale(-1,1);
+    const s=this.s,v=this.variant,wag=Math.sin(this.wagP)*0.3;
+
+    /* tail fin */
+    ctx.globalAlpha=0.55;
+    ctx.fillStyle=v.tail;
+    ctx.beginPath();
+    ctx.moveTo(-s*0.5,0);
+    ctx.quadraticCurveTo(-s*1.35,-s*0.75+wag*s*0.55,-s*1.7,-s*0.08+wag*s*0.35);
+    ctx.quadraticCurveTo(-s*1.3,0,-s*1.7,s*0.6+wag*s*0.35);
+    ctx.quadraticCurveTo(-s*1.35,s*0.7+wag*s*0.55,-s*0.5,0);
+    ctx.fill();
+
+    /* pectoral fin */
+    ctx.globalAlpha=0.4;
+    ctx.beginPath();
+    ctx.ellipse(s*0.05,s*0.3,s*0.3,s*0.14,0.6,0,Math.PI*2);
+    ctx.fill();
+
+    /* body */
+    ctx.globalAlpha=0.92;
+    ctx.beginPath();ctx.ellipse(0,0,s*0.85,s*0.4,0,0,Math.PI*2);
+    ctx.fillStyle=this.excited>0?`rgba(255,250,210,${0.7+this.excited*0.3})`:v.base;
+    ctx.fill();
+
+    /* color patches */
+    v.patches.forEach(p=>{
+      ctx.save();
+      ctx.beginPath();ctx.ellipse(0,0,s*0.85,s*0.4,0,0,Math.PI*2);ctx.clip();
+      ctx.beginPath();ctx.ellipse(p.dx*s*1.6,p.dy*s*1.6,p.rx*s*1.6,p.ry*s*1.6,0,0,Math.PI*2);
+      ctx.fillStyle=p.c;ctx.fill();
+      ctx.restore();
+    });
+
+    /* dorsal fin */
+    ctx.globalAlpha=0.45;
+    ctx.fillStyle=v.tail;
+    ctx.beginPath();
+    ctx.moveTo(s*0.02,-s*0.32);ctx.lineTo(s*0.3,-s*0.62);ctx.lineTo(s*0.5,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    /* eye */
+    ctx.globalAlpha=0.92;
+    ctx.beginPath();ctx.arc(s*0.62,-s*0.08,s*0.07,0,Math.PI*2);ctx.fillStyle='#2a2624';ctx.fill();
+
+    /* barbels */
+    ctx.globalAlpha=0.45;
+    ctx.strokeStyle='rgba(120,100,80,0.6)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(s*0.8,s*0.04);ctx.quadraticCurveTo(s*0.96,s*0.2,s*0.86,s*0.32);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(s*0.78,-s*0.04);ctx.quadraticCurveTo(s*0.92,-s*0.18,s*0.84,-s*0.28);ctx.stroke();
+
     ctx.restore();
   }
 }
@@ -662,10 +768,40 @@ class Pellet{
   draw(){if(this.alpha<=0)return;ctx.save();ctx.globalAlpha=this.alpha;ctx.beginPath();ctx.ellipse(this.x,this.y,this.r,this.r*.7,0,0,Math.PI*2);ctx.fillStyle='#c8983a';ctx.fill();ctx.restore();}
   get dead(){return this.eaten&&this.alpha<=0;}
 }
+
+/* ---- cursor ripples ---- */
+class Ripple{
+  constructor(x,y,size=1){this.x=x;this.y=y;this.r=1;this.size=size;this.alpha=0.5*size;this.grow=1.15*size;}
+  update(){this.r+=this.grow;this.alpha-=0.011;}
+  draw(){
+    if(this.alpha<=0)return;
+    ctx.save();ctx.globalAlpha=Math.max(0,this.alpha);
+    ctx.strokeStyle='rgba(225,245,250,0.65)';ctx.lineWidth=1.3;
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.stroke();
+    ctx.restore();
+  }
+  get dead(){return this.alpha<=0;}
+}
+const ripples=[];
+let lastRippleT=0;
+function spawnRipple(x,y,size){
+  const now=performance.now();
+  if(now-lastRippleT<55)return;
+  lastRippleT=now;
+  ripples.push(new Ripple(x,y,size));
+}
+window.addEventListener('mousemove',e=>spawnRipple(e.clientX,e.clientY,0.55+Math.random()*0.3));
+window.addEventListener('touchmove',e=>{const t=e.touches[0];if(t)spawnRipple(t.clientX,t.clientY,0.55+Math.random()*0.3);},{passive:true});
+window.addEventListener('click',e=>{ripples.push(new Ripple(e.clientX,e.clientY,1.6));});
+
 const fishes=Array.from({length:8},()=>new Fish());
 const foods=[];let t=0;
 function loop(){
   ctx.clearRect(0,0,canvas.width,canvas.height);t+=0.016;
+
+  for(let i=ripples.length-1;i>=0;i--){ripples[i].update();if(ripples[i].dead)ripples.splice(i,1);}
+  ripples.forEach(r=>r.draw());
+
   for(let i=foods.length-1;i>=0;i--){foods[i].update();if(foods[i].dead||foods[i].y>canvas.height+20)foods.splice(i,1);}
   foods.forEach(f=>f.draw());
   fishes.forEach(f=>{f.update(t,foods.filter(p=>!p.eaten));f.draw();});
