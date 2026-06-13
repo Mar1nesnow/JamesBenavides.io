@@ -9,47 +9,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-/* ══ SOFTER, WARMER DEEP-BLUE PALETTE ══ */
 :root{
-  /* backgrounds — warmer, less stark */
   --bg:#101e30;
   --surface:#172334;
   --surface2:#1e2d42;
   --surface3:#243550;
-  /* accent — slightly warmer cornflower */
   --accent:#6aaee0;
   --accent-dim:rgba(106,174,224,0.10);
   --accent-glow:rgba(106,174,224,0.22);
-  /* text hierarchy — more contrast between levels */
   --sky:#b0d8f2;
-  --bright:#edf4fc;       /* headings / bold */
-  --body:#c4d8ec;         /* body text — readable, not harsh */
-  --mist:#8dafc8;         /* secondary text */
-  --fog:#557090;          /* tertiary / captions */
-  --faint:#2e4560;        /* borders dim */
+  --bright:#edf4fc;
+  --body:#c4d8ec;
+  --mist:#8dafc8;
+  --fog:#557090;
+  --faint:#2e4560;
   --border:rgba(106,174,224,0.14);
   --border-h:rgba(106,174,224,0.34);
-  /* type */
   --serif:'Playfair Display',Georgia,serif;
   --sans:'Source Sans 3',sans-serif;
   --mono:'DM Mono',monospace;
-  /* shadows */
   --shadow:0 2px 18px rgba(0,0,0,0.28);
   --shadow-md:0 6px 36px rgba(0,0,0,0.38);
 }
-
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--body);font-size:18px;line-height:1.85;overflow-x:hidden}
-
-/* ══ VIEWS ══ */
 .view{display:none;min-height:100vh}
 .view.active{display:block;animation:fadeIn .32s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ══════════════════════════════════════
-   A11Y TOGGLE + PANEL
-══════════════════════════════════════ */
 #a11y-toggle{
   position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:300;
   width:34px;height:60px;background:var(--surface);border:1px solid var(--border-h);
@@ -103,10 +89,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--body);font-size:18
 .fish-parade{display:flex;gap:5px;animation:parade 8s linear infinite;font-size:.85rem;white-space:nowrap}
 @keyframes parade{0%{transform:translateX(272px)}100%{transform:translateX(-200px)}}
 body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:#fff;--body:#e8e8e8;--mist:#ccc;--fog:#777;--border:rgba(255,255,255,.2);--border-h:rgba(255,255,255,.4)}
-
-/* ══════════════════════════════════════
-   TOPBAR
-══════════════════════════════════════ */
 .topbar{
   padding:18px 56px;display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid var(--border);background:rgba(16,30,48,.97);
@@ -116,13 +98,9 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
 .topbar-links{display:flex;gap:22px}
 .topbar-link{font-family:var(--mono);font-size:.72rem;color:var(--mist);text-decoration:none;letter-spacing:1px;transition:color .2s}
 .topbar-link:hover{color:var(--accent)}
-
-/* ══════════════════════════════════════
-   HOME — NAME + HEADSHOT ROW
-══════════════════════════════════════ */
 .home-top{
   max-width:1120px;margin:0 auto;
-  padding:48px 56px 28px;   /* ← tighter bottom padding → bio feels closer */
+  padding:48px 56px 28px;
   display:grid;grid-template-columns:1fr 320px;gap:0 56px;align-items:center;
 }
 .home-eyebrow{
@@ -146,8 +124,6 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
 }
 .home-contact-link:hover{color:var(--accent)}
 .home-contact-link svg{width:13px;height:13px;fill:currentColor}
-
-/* headshot */
 .home-top-right{display:flex;flex-direction:column;align-items:center;gap:10px}
 .headshot-frame{
   width:270px;height:330px;
@@ -166,22 +142,15 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
 .headshot-ph .ph-code{font-family:var(--mono);font-size:.6rem;color:var(--accent);opacity:.65;line-height:1.5}
 .headshot-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .hero-loc{font-family:var(--mono);font-size:.67rem;color:var(--fog);letter-spacing:1px;text-align:center}
-
-/* ══════════════════════════════════════
-   HOME — BIO BLOCK
-   Sits immediately below name row (small gap)
-══════════════════════════════════════ */
 .home-bio-block{
   max-width:1120px;margin:0 auto;
-  padding:0 56px 40px;   /* ← small top padding = bio hugs name */
+  padding:0 56px 40px;
 }
 .bio-card{
   background:var(--surface);border:1px solid var(--border);
   border-radius:18px;padding:40px 50px;
   box-shadow:var(--shadow);
 }
-
-/* Bio typography — punchy, legible hierarchy */
 .bio-card .bio-lead{
   font-family:var(--serif);font-size:1.3rem;font-weight:400;font-style:italic;
   color:var(--bright);line-height:1.7;margin-bottom:22px;
@@ -194,7 +163,6 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
 .bio-card p:last-child{margin-bottom:0}
 .bio-card strong{
   color:var(--bright);font-weight:700;
-  /* subtle highlight on key terms */
   background:rgba(106,174,224,0.1);
   padding:0 3px;border-radius:3px;
 }
@@ -204,10 +172,6 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
   border:1px solid rgba(106,174,224,0.25);border-radius:20px;
   padding:2px 10px;margin:2px 4px 2px 0;vertical-align:middle;
 }
-
-/* ══════════════════════════════════════
-   HOME — THREE BIG NAV BUTTONS
-══════════════════════════════════════ */
 .home-nav-btns{
   max-width:1120px;margin:0 auto;
   padding:0 56px 72px;
@@ -235,10 +199,6 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
 .home-nav-btn-sub{font-size:.85rem;font-weight:400;opacity:.7;display:block;font-family:var(--mono);letter-spacing:.4px}
 .home-nav-btn-arrow{font-size:1.5rem;opacity:.35;transition:opacity .2s,transform .2s;flex-shrink:0}
 .home-nav-btn:hover .home-nav-btn-arrow{opacity:1;transform:translate(4px,-4px)}
-
-/* ══════════════════════════════════════
-   TIMELINE
-══════════════════════════════════════ */
 .tl-section{max-width:1120px;margin:0 auto;padding:0 56px 60px}
 .sec-lbl{
   font-family:var(--mono);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;
@@ -270,10 +230,6 @@ body.hc{--bg:#000;--surface:#0a0a0a;--surface2:#111;--surface3:#181818;--bright:
 .tl-tag{font-family:var(--mono);font-size:.63rem;background:rgba(106,174,224,.1);color:var(--sky);border-radius:20px;padding:3px 11px}
 .resume-link{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-family:var(--mono);font-size:.76rem;color:var(--mist);text-decoration:none;transition:color .2s}
 .resume-link:hover{color:var(--accent)}
-
-/* ══════════════════════════════════════
-   MEDIA CARDS
-══════════════════════════════════════ */
 .pe-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
 a.pe-card{
   background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;
@@ -295,10 +251,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 .pe-desc{font-size:.88rem;color:var(--mist);line-height:1.75;margin-bottom:12px}
 .pe-tags{display:flex;flex-wrap:wrap;gap:5px}
 .pe-tag{font-family:var(--mono);font-size:.6rem;background:var(--accent-dim);color:var(--sky);border:1px solid var(--border);border-radius:20px;padding:3px 9px}
-
-/* ══════════════════════════════════════
-   INNER PAGE NAV (full-width tabs)
-══════════════════════════════════════ */
 .page-nav{
   background:rgba(16,30,48,.97);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--border);
@@ -325,10 +277,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 .tab-btn:last-child{border-right:none}
 .tab-btn:hover{color:var(--bright);background:var(--accent-dim)}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(106,174,224,0.07)}
-
-/* ══════════════════════════════════════
-   INNER PAGE HEADER
-══════════════════════════════════════ */
 .page-hdr{max-width:1120px;margin:0 auto;padding:50px 56px 34px}
 .page-hdr-lbl{
   font-family:var(--mono);font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
@@ -337,10 +285,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 .page-hdr-lbl::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
 .page-hdr-title{font-family:var(--serif);font-size:2.3rem;font-weight:700;color:var(--bright);margin-bottom:12px}
 .page-hdr-sub{font-size:1.02rem;color:var(--mist);max-width:600px;line-height:1.85}
-
-/* ══════════════════════════════════════
-   EXPERIENCE BLOCKS
-══════════════════════════════════════ */
 .page-content{max-width:1120px;margin:0 auto;padding:0 56px 80px}
 .fw-div{display:flex;align-items:center;gap:14px;margin:38px 0 18px}
 .fw-div-lbl{font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--bright);white-space:nowrap}
@@ -360,13 +304,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 .sk-list{display:flex;flex-direction:column;gap:8px}
 .sk-item{display:flex;align-items:center;gap:9px;font-size:.88rem;color:var(--sky)}
 .sk-item::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
-
-/* ══════════════════════════════════════
-   PHOTO STRIPS
-   To add a photo: replace <div class="photo-ph">...</div>
-   with <img src="yourfile.jpg" alt="description">
-   inside the .photo-slot div.
-══════════════════════════════════════ */
 .photo-note{font-family:var(--mono);font-size:.6rem;color:var(--fog);padding:12px 30px 0;line-height:1.6}
 .photo-strip{border-top:1px solid var(--border);padding:16px 30px;background:var(--surface);display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
 .photo-slot{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -376,32 +313,15 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 .photo-ph svg{width:22px;height:22px;fill:var(--fog)}
 .photo-ph span{font-family:var(--mono);font-size:.57rem;color:var(--fog);text-align:center;line-height:1.5}
 .photo-cap{font-family:var(--mono);font-size:.6rem;color:var(--fog);text-align:center;max-width:140px;line-height:1.35}
-
-/* ══════════════════════════════════════
-   HOBBY CARDS (fun page)
-══════════════════════════════════════ */
 .pe-hobby-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
 .pe-hobby-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;box-shadow:var(--shadow)}
 .pe-icon{width:42px;height:42px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--border)}
 .pe-icon svg{width:21px;height:21px;fill:var(--accent)}
-.pe-cat{font-family:var(--mono);font-size:.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--fog);margin-bottom:5px}
-.pe-title{font-size:1rem;font-weight:700;color:var(--bright);margin-bottom:8px}
-.pe-desc{font-size:.91rem;color:var(--mist);line-height:1.75;margin-bottom:12px}
-.pe-tags{display:flex;flex-wrap:wrap;gap:5px}
-.pe-tag{font-family:var(--mono);font-size:.6rem;background:var(--accent-dim);color:var(--sky);border:1px solid var(--border);border-radius:20px;padding:3px 9px}
-
-/* ══════════════════════════════════════
-   CURSOR BUBBLES
-══════════════════════════════════════ */
 .cursor-bubble{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);animation:bubbleFade var(--dur,.9s) ease-out forwards}
 @keyframes bubbleFade{
   0%{opacity:.65;transform:translate(-50%,-50%) scale(1)}
   100%{opacity:0;transform:translate(calc(-50% + var(--dx,0px)),calc(-50% - var(--rise,40px))) scale(.15)}
 }
-
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
 @media(max-width:900px){
   .home-top{grid-template-columns:1fr;gap:36px;padding:36px 24px 20px}
   .home-top-right{order:-1;align-items:flex-start}
@@ -421,13 +341,13 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 </head>
 <body>
 
-<!-- ═══ A11Y TOGGLE ═══ -->
+<!-- A11Y TOGGLE -->
 <button id="a11y-toggle" aria-label="Accessibility settings" aria-expanded="false">
   <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 110 4 2 2 0 010-4zm8 7h-5v13h-2v-6h-2v6H9V9H4V7h16v2z"/></svg>
   <span class="a11y-label">A11Y</span>
 </button>
 
-<!-- ═══ A11Y PANEL ═══ -->
+<!-- A11Y PANEL -->
 <aside id="a11y-panel" role="dialog" aria-label="Accessibility settings">
   <div class="a11y-hdr">
     <div class="a11y-hdr-left">
@@ -471,9 +391,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
   <div class="a11y-ftr"><div class="fish-parade" aria-hidden="true">🐟 🫧 🐠 🐡 🦀 🫧 🐟 🐚 🐡 🫧 🐠 🐟 🦑 🫧 🐟</div></div>
 </aside>
 
-<!-- ════════════════════════════════════
-     HOME
-════════════════════════════════════ -->
+<!-- ═══════════════ HOME ═══════════════ -->
 <div id="home" class="view active">
   <header class="topbar">
     <span class="topbar-name">James Benavides</span>
@@ -483,7 +401,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
     </div>
   </header>
 
-  <!-- ROW 1 — Name + Headshot -->
   <div class="home-top">
     <div class="home-top-left">
       <h1 class="home-name">James<br>Benavides</h1>
@@ -498,55 +415,24 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <span class="home-contact-link">📍 Coon Rapids, Iowa</span>
       </div>
     </div>
-
     <div class="home-top-right">
-      <!-- ════════════════════════════════
-           ADD YOUR HEADSHOT HERE:
-           Replace the <div class="headshot-ph">
-           block with:
-           <img src="James.png" alt="James Benavides">
-           (file must be in the same folder)
-      ════════════════════════════════ -->
       <div class="headshot-frame">
-        <!-- ════════════════════════════════
-             YOUR HEADSHOT IS ALREADY SET:
-             <img src="James.png" alt="James Benavides">
-
-             IMPORTANT — the img tag must be the
-             ONLY thing inside .headshot-frame.
-             Do NOT leave any other tags (svg, div,
-             span) inside the frame alongside it.
-             The correct structure is exactly:
-
-             <div class="headshot-frame">
-               <img src="James.png" alt="James Benavides">
-             </div>
-        ════════════════════════════════ -->
         <img src="James.png" alt="James Benavides">
       </div>
     </div>
   </div>
 
-  <!-- ROW 2 — Bio (tight to name row) -->
   <div class="home-bio-block">
     <div class="bio-card">
-
-     <p>Welcome! I’m an environmental scientist with a passion for understanding ecosystems through both data and lived experience.</p>
-
-      <p>In 2025, I earned dual degrees in <strong>Biology (Marine, Ecology, and Evolution)</strong> and <strong>Gender, Sexuality, and Women’s Studies</strong> from <strong>Bowdoin College in Maine</strong>. I seek an interdisciplinary foundation that shapes how I approach environmental work as both science and story. </p>
-
-      <p>My research experience spans sea star behavior, oyster aquaculture, and marine protist culturing, with experience designing, conducting, and presenting projects. </p>
-
+      <p>Welcome! I'm an environmental scientist with a passion for understanding ecosystems through both data and lived experience.</p>
+      <p>In 2025, I earned dual degrees in <strong>Biology (Marine, Ecology, and Evolution)</strong> and <strong>Gender, Sexuality, and Women's Studies</strong> from <strong>Bowdoin College in Maine</strong>. I seek an interdisciplinary foundation that shapes how I approach environmental work as both science and story.</p>
+      <p>My research experience spans sea star behavior, oyster aquaculture, and marine protist culturing, with experience designing, conducting, and presenting projects.</p>
       <p>In my recent experience with <strong>Texas Parks and Wildlife - Coastal Fisheries</strong>, I worked on permitting processes, public engagement, and fisheries sampling, gaining insight into applied conservation at the state level.</p>
-
-      <p>I currently serve as an <strong>AmeriCorps</strong> member at <strong>Whiterock Conservancy</strong> in Iowa, where I focus on land stewardship through invasive species removal, soil and water sampling, environmental education for diverse audiences, and trail / campground maintenance. </p>
-
-      <p>I value preparation and safety in the field, but I also believe curiosity and connection to place are just as essential. Moving forward, I’m eager to deepen my skills in data analysis, programming, scientific communication, and grant writing alongside hands-on environmental work.</p>
-  
+      <p>I currently serve as an <strong>AmeriCorps</strong> member at <strong>Whiterock Conservancy</strong> in Iowa, where I focus on land stewardship through invasive species removal, soil and water sampling, environmental education for diverse audiences, and trail / campground maintenance.</p>
+      <p>I value preparation and safety in the field, but I also believe curiosity and connection to place are just as essential. Moving forward, I'm eager to deepen my skills in data analysis, programming, scientific communication, and grant writing alongside hands-on environmental work.</p>
     </div>
   </div>
 
-  <!-- ROW 3 — Three Big Buttons -->
   <div class="home-nav-btns">
     <button class="home-nav-btn primary" onclick="showPage('fieldwork')">
       <div class="home-nav-btn-left">
@@ -580,7 +466,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
     </button>
   </div>
 
-  <!-- Timeline -->
   <div class="tl-section">
     <div class="sec-lbl">Experience</div>
     <div class="timeline">
@@ -628,13 +513,11 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
     <a class="resume-link" href="#">View Full Résumé ↗</a>
   </div>
 
-  <!-- Media -->
   <div class="tl-section" style="padding-top:0">
     <div class="sec-lbl">Science Communication &amp; Media</div>
     <div class="pe-grid">
       <a href="https://open.spotify.com/episode/286qn6wZA8FMIsA0r6vFPK?si=b28b5227fecf4e29" target="_blank" class="pe-card">
-        <!-- THUMBNAIL: replace <div class="pe-thumb-ph"> with <img class="pe-thumb" src="thumb.jpg" alt="..."> -->
-        <div class="pe-thumb-ph" id="thumb-spotify"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
+        <div class="pe-thumb-ph"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
         <div class="pe-card-body"><div class="pe-cat">Podcast · Darling Marine Lab</div><div class="pe-title">Salty Talks: Sustainable Agriculture in Maine (2024)</div><div class="pe-desc">Discussing how I intersected Western Science and Indigenous Knowledge in my oyster research.</div><div class="pe-tags"><span class="pe-tag">Podcast</span><span class="pe-tag">Interview</span></div></div>
       </a>
       <a href="https://www.youtube.com/watch?v=prm94H-AAvs" target="_blank" class="pe-card">
@@ -642,18 +525,15 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <div class="pe-card-body"><div class="pe-cat">Video · Bowdoin / Schiller Center</div><div class="pe-title">How Will Sea Stars Grow in Warming Waters? (2023)</div><div class="pe-desc">Video feature on my sea star behavioral research at Bowdoin's Coastal Studies Center.</div><div class="pe-tags"><span class="pe-tag">Video</span><span class="pe-tag">Research Feature</span></div></div>
       </a>
       <a href="http://bowdoin.edu/news/2023/12/schiller-semester-ends-with-a-tidal-wave-of-student-research.html" target="_blank" class="pe-card">
-        <!-- THUMBNAIL: replace <div class="pe-thumb-ph"> with <img class="pe-thumb" src="thumb.jpg" alt="..."> -->
-        <div class="pe-thumb-ph" id="thumb-bowdoin1"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
+        <div class="pe-thumb-ph"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
         <div class="pe-card-body"><div class="pe-cat">Article · Bowdoin News</div><div class="pe-title">Schiller Semester: A Tidal Wave of Student Research (2023)</div><div class="pe-desc">Overview of Bowdoin's Coastal Science Semester featuring my scallop research.</div><div class="pe-tags"><span class="pe-tag">Press</span><span class="pe-tag">Schiller Center</span></div></div>
       </a>
       <a href="https://www.bowdoin.edu/news/2023/08/coastal-research-reveals-complexities-marine-life.html" target="_blank" class="pe-card">
-        <!-- THUMBNAIL: replace <div class="pe-thumb-ph"> with <img class="pe-thumb" src="thumb.jpg" alt="..."> -->
-        <div class="pe-thumb-ph" id="thumb-bowdoin2"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
+        <div class="pe-thumb-ph"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
         <div class="pe-card-body"><div class="pe-cat">Article · Bowdoin News</div><div class="pe-title">Coastal Research Reveals Complexities of Marine Life (2023)</div><div class="pe-desc">Marine science Research Fellows spotlight featuring my sea star research.</div><div class="pe-tags"><span class="pe-tag">Press</span><span class="pe-tag">Schiller Center</span></div></div>
       </a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7269828295095947265/" target="_blank" class="pe-card">
-        <!-- THUMBNAIL: replace <div class="pe-thumb-ph"> with <img class="pe-thumb" src="thumb.jpg" alt="..."> -->
-        <div class="pe-thumb-ph" id="thumb-linkedin"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
+        <div class="pe-thumb-ph"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>Replace with &lt;img class="pe-thumb" src="thumb.jpg"&gt;</span></div>
         <div class="pe-card-body"><div class="pe-cat">LinkedIn · Darling Marine Lab</div><div class="pe-title">Aquaculture Research Institute Fellow Spotlight (2024)</div><div class="pe-desc">A highlight of my oyster aquaculture project from the ARI Research Fellow program.</div><div class="pe-tags"><span class="pe-tag">LinkedIn</span><span class="pe-tag">Darling Marine Lab</span></div></div>
       </a>
     </div>
@@ -661,9 +541,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 
 </div><!-- /home -->
 
-<!-- ════════════════════════════════════
-     FIELDWORK
-════════════════════════════════════ -->
+<!-- ═══════════════ FIELDWORK ═══════════════ -->
 <div id="fieldwork" class="view">
   <nav class="page-nav">
     <button class="pn-home" onclick="showHome()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Home</button>
@@ -680,6 +558,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 
     <div class="fw-div"><span class="fw-div-lbl">Land Management</span></div>
 
+    <!-- Invasive Species Removal -->
     <div class="exp-block">
       <div class="exp-top">
         <div class="exp-left">
@@ -702,15 +581,15 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
           </div>
         </div>
       </div>
-      <!-- PHOTOS: replace <div class="photo-ph">…</div> with <img src="file.jpg" alt="caption"> inside .photo-slot -->
-  <p class="photo-note">📷 To add photos: replace &lt;div class="photo-ph"&gt;…&lt;/div&gt; with &lt;img src="file.jpg" alt="caption"&gt; inside each .photo-slot</p>
+      <p class="photo-note">📷 To add photos: replace &lt;div class="photo-ph"&gt;…&lt;/div&gt; with &lt;img src="file.jpg" alt="caption"&gt; inside each .photo-slot</p>
       <div class="photo-strip">
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Caption here</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Caption here</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Caption here</div></div>
       </div>
-    </div>
+    </div><!-- /exp-block: Invasive Species -->
 
+    <!-- BUG FIX 1: Prescribed Fire — photo-strip was never closed, swallowing the next two exp-blocks -->
     <div class="exp-block">
       <div class="exp-top">
         <div class="exp-left">
@@ -733,24 +612,24 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         </div>
       </div>
       <p class="photo-note">📷 To add photos: replace &lt;div class="photo-ph"&gt;…&lt;/div&gt; with &lt;img src="file.jpg" alt="caption"&gt; inside each .photo-slot</p>
+      <!-- BUG FIX 2: Whiterock photo filenames had no file extensions — added .jpg -->
+      <div class="photo-strip">
+        <div class="photo-slot">
+          <img src="Whiterock1.jpg" alt="Running the torch during a prescribed fire">
+          <div class="photo-cap">Running the torch during a prescribed fire</div>
+        </div>
+        <div class="photo-slot">
+          <img src="Whiterock2.jpg" alt="Caption here">
+          <div class="photo-cap">Caption here</div>
+        </div>
+        <div class="photo-slot">
+          <img src="Whiterock3.jpg" alt="Caption here">
+          <div class="photo-cap">Caption here</div>
+        </div>
+      </div><!-- BUG FIX 1: this closing tag was missing — caused Timber Stand + Fisheries blocks to be nested inside here -->
+    </div><!-- /exp-block: Prescribed Fire -->
 
-<div class="photo-strip">
-
-  <div class="photo-slot">
-    <img src="Whiterock1" alt="Running the torch during a prescribed fire">
-    <div class="photo-cap">Running the torch during a prescribed fire</div>
-  </div>
-
-  <div class="photo-slot">
-    <img src="Whiterock2" alt="Caption here">
-    <div class="photo-cap">Caption here</div>
-  </div>
-
-  <div class="photo-slot">
-    <img src="Whiterock3" alt="Caption here">
-    <div class="photo-cap">Caption here</div>
-  </div>
-
+    <!-- Timber Stand Improvement — was incorrectly nested inside Prescribed Fire's photo-strip -->
     <div class="exp-block">
       <div class="exp-top">
         <div class="exp-left">
@@ -777,7 +656,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Moving logs for timber stand improvement</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Caption here</div></div>
       </div>
-    </div>
+    </div><!-- /exp-block: Timber Stand -->
 
     <div class="fw-div"><span class="fw-div-lbl">Coastal Fisheries</span></div>
 
@@ -813,7 +692,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Leading HAB education workshop</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Recording fish for angler surveys</div></div>
       </div>
-    </div>
+    </div><!-- /exp-block: Fisheries Sampling -->
 
     <div class="fw-div"><span class="fw-div-lbl">Marine Biology Research</span></div>
 
@@ -845,7 +724,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Leading a laboratory tour</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Intertidal oyster study site</div></div>
       </div>
-    </div>
+    </div><!-- /exp-block: Oyster Aquaculture -->
 
     <div class="exp-block">
       <div class="exp-top">
@@ -874,7 +753,8 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Sea stars in flow-through tanks</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">GoPro recording scallop behavior</div></div>
       </div>
-    </div>
+    </div><!-- /exp-block: Scallop & Sea Star -->
+
     <div class="exp-block">
       <div class="exp-top">
         <div class="exp-left">
@@ -902,14 +782,12 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Culturing marine protists</div></div>
         <div class="photo-slot"><div class="photo-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>src="photo.jpg"</span></div><div class="photo-cap">Offshore water filtering</div></div>
       </div>
-    </div>
+    </div><!-- /exp-block: Marine Protist -->
 
   </div>
 </div><!-- /fieldwork -->
 
-<!-- ════════════════════════════════════
-     PUBLIC ENGAGEMENT
-════════════════════════════════════ -->
+<!-- ═══════════════ PUBLIC ENGAGEMENT ═══════════════ -->
 <div id="engagement" class="view">
   <nav class="page-nav">
     <button class="pn-home" onclick="showHome()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Home</button>
@@ -1020,9 +898,7 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
   </div>
 </div><!-- /engagement -->
 
-<!-- ════════════════════════════════════
-     FUN THINGS
-════════════════════════════════════ -->
+<!-- ═══════════════ FUN THINGS ═══════════════ -->
 <div id="fun" class="view">
   <nav class="page-nav">
     <button class="pn-home" onclick="showHome()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Home</button>
@@ -1038,7 +914,6 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
   <div class="page-content">
 
     <div class="fw-div"><span class="fw-div-lbl">Art &amp; Creativity</span></div>
-    <!-- ART GALLERY: replace each placeholder div with <img src="art.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:12px" alt="title"> -->
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;margin-bottom:20px">
       <div style="background:var(--surface);border:1.5px dashed var(--faint);border-radius:14px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="var(--fog)"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span style="font-family:var(--mono);font-size:.62rem;color:var(--fog);line-height:1.5">Add artwork<br>src="art.jpg"</span></div>
       <div style="background:var(--surface);border:1.5px dashed var(--faint);border-radius:14px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="var(--fog)"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span style="font-family:var(--mono);font-size:.62rem;color:var(--fog);line-height:1.5">Add artwork<br>src="art.jpg"</span></div>
@@ -1068,27 +943,26 @@ a.pe-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-h);transfo
 </div><!-- /fun -->
 
 <script>
-/* ════ NAVIGATION ════ */
-function showHome() {
-  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+function showHome(){
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
   document.getElementById('home').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo({top:0,behavior:'instant'});
 }
-function showPage(id) {
-  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+function showPage(id){
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
   document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo({top:0,behavior:'instant'});
 }
 
-/* ════ BUBBLE CURSOR ════ */
+/* Bubble cursor */
 (function(){
   var colors=['rgba(106,174,224,','rgba(176,216,242,','rgba(220,240,252,','rgba(70,130,180,'];
   var throttle=false;
   document.addEventListener('mousemove',function(e){
-    if(throttle)return; throttle=true; setTimeout(function(){throttle=false;},40);
+    if(throttle)return;throttle=true;setTimeout(function(){throttle=false;},40);
     var n=Math.floor(Math.random()*2)+1;
     for(var i=0;i<n;i++)(function(){
-      var b=document.createElement('div'); b.className='cursor-bubble';
+      var b=document.createElement('div');b.className='cursor-bubble';
       var size=(Math.random()*10+5).toFixed(1);
       var alpha=(Math.random()*.5+.25).toFixed(2);
       var col=colors[Math.floor(Math.random()*colors.length)];
@@ -1099,13 +973,13 @@ function showPage(id) {
       var s='width:'+size+'px;height:'+size+'px;left:'+e.clientX+'px;top:'+e.clientY+'px;';
       s+=border?'border:1px solid '+col+'0.7);background:'+col+alpha+');':'background:'+col+alpha+');';
       s+='--dx:'+dx+'px;--rise:'+rise+'px;--dur:'+dur+'s;';
-      b.style.cssText=s; document.body.appendChild(b);
+      b.style.cssText=s;document.body.appendChild(b);
       setTimeout(function(){b.remove();},parseFloat(dur)*1000+50);
     })();
   });
 })();
 
-/* ════ ACCESSIBILITY PANEL ════ */
+/* Accessibility panel */
 (function(){
   var panel=document.getElementById('a11y-panel');
   var tog=document.getElementById('a11y-toggle');
@@ -1114,7 +988,6 @@ function showPage(id) {
   tog.addEventListener('click',function(){panel.classList.add('open');tog.setAttribute('aria-expanded','true');});
   close.addEventListener('click',function(){panel.classList.remove('open');tog.setAttribute('aria-expanded','false');});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')panel.classList.remove('open');});
-
   function makeSlider(trkId,thmId,filId,valId,min,max,init,dec,unit,cb){
     var trk=document.getElementById(trkId),thm=document.getElementById(thmId),fil=document.getElementById(filId),val=document.getElementById(valId),cur=init;
     function pct(v){return(v-min)/(max-min);}
@@ -1122,8 +995,8 @@ function showPage(id) {
     function set(v){
       cur=Math.max(min,Math.min(max,v));
       var p=pct(cur),tw=trk.offsetWidth-16;
-      thm.style.left=(8+p*tw)+'px'; fil.style.width=(p*tw)+'px';
-      val.textContent=cur.toFixed(dec)+(unit||''); cb(cur);
+      thm.style.left=(8+p*tw)+'px';fil.style.width=(p*tw)+'px';
+      val.textContent=cur.toFixed(dec)+(unit||'');cb(cur);
     }
     function pos(e){var r=trk.getBoundingClientRect(),cx=e.touches?e.touches[0].clientX:e.clientX;return frm(Math.max(0,Math.min(1,(cx-r.left-8)/(r.width-16))));}
     var drag=false;
@@ -1135,15 +1008,15 @@ function showPage(id) {
     document.addEventListener('touchend',function(){drag=false;});
     trk.addEventListener('click',function(e){if(e.target===thm)return;set(pos(e));});
     thm.addEventListener('keydown',function(e){var s=(max-min)/20;if(e.key==='ArrowRight'||e.key==='ArrowUp'){set(cur+s);e.preventDefault();}if(e.key==='ArrowLeft'||e.key==='ArrowDown'){set(cur-s);e.preventDefault();}});
-    set(init); return{setVal:set};
+    set(init);return{setVal:set};
   }
   var BFS=18,BLH=1.85;
   var sz=makeSlider('size-track','size-thumb','size-fill','size-val',14,24,BFS,0,'px',function(v){document.body.style.fontSize=v+'px';});
   var lh=makeSlider('lh-track','lh-thumb','lh-fill','lh-val',1.3,2.4,BLH,2,'',function(v){document.body.style.lineHeight=v;});
   var THEMES={default:{bright:'#edf4fc',body:'#c4d8ec',mist:'#8dafc8'},warm:{bright:'#f5e6c8',body:'#e0c890',mist:'#c8a87a'},sage:{bright:'#c8e6d4',body:'#9eceb0',mist:'#7ab896'},coral:{bright:'#ffd6d6',body:'#f0a8a8',mist:'#e89494'},lavender:{bright:'#e0d4f5',body:'#c0aae0',mist:'#a894d4'},white:{bright:'#ffffff',body:'#dddddd',mist:'#bbbbbb'}};
   document.getElementById('swatches').addEventListener('click',function(e){
-    var sw=e.target.closest('.swatch'); if(!sw)return;
-    var t=THEMES[sw.dataset.c]; if(!t)return;
+    var sw=e.target.closest('.swatch');if(!sw)return;
+    var t=THEMES[sw.dataset.c];if(!t)return;
     document.querySelectorAll('.swatch').forEach(function(s){s.classList.remove('active');});
     sw.classList.add('active');
     root.style.setProperty('--bright',t.bright);
@@ -1155,18 +1028,15 @@ function showPage(id) {
   var dp=mkPill('tog-dyslexia',function(on){document.body.style.fontFamily=on?"'OpenDyslexic','Comic Sans MS',cursive":'';});
   var mp=mkPill('tog-motion',function(on){var ex=document.getElementById('rm-style');if(on){var s=document.createElement('style');s.id='rm-style';s.textContent='*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}';document.head.appendChild(s);}else if(ex)ex.remove();});
   document.getElementById('a11y-reset').addEventListener('click',function(){
-    sz.setVal(BFS); lh.setVal(BLH);
-    root.style.removeProperty('--bright'); root.style.removeProperty('--body'); root.style.removeProperty('--mist');
-    document.body.style.fontSize=''; document.body.style.lineHeight=''; document.body.style.fontFamily='';
+    sz.setVal(BFS);lh.setVal(BLH);
+    root.style.removeProperty('--bright');root.style.removeProperty('--body');root.style.removeProperty('--mist');
+    document.body.style.fontSize='';document.body.style.lineHeight='';document.body.style.fontFamily='';
     document.querySelectorAll('.swatch').forEach(function(s){s.classList.toggle('active',s.dataset.c==='default');});
-    cp.setState(false); dp.setState(false); mp.setState(false);
+    cp.setState(false);dp.setState(false);mp.setState(false);
     document.body.classList.remove('hc');
-    var ex=document.getElementById('rm-style'); if(ex)ex.remove();
+    var ex=document.getElementById('rm-style');if(ex)ex.remove();
   });
 })();
 </script>
 </body>
 </html>
-
-
-  
