@@ -370,7 +370,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 const headshotPlaceholder=document.getElementById('headshotPlaceholder');
 
 /* GALLERIES */
-const photoLists={'gallery-stewardship':['Stewardship1.jpg','Stewardship2.jpg'],'gallery-fire':['Fire1.jpg','Fire2.jpg'],'gallery-fisheries':['Fisheries1.jpg','Fisheries2.jpg'],'gallery-research':['Research1.jpg','Research2.jpg'],'gallery-education':['Education1.jpg','Education2.jpg','Education3.jpg'],'gallery-surveying':['Surveying1.jpg'],'gallery-tabling':['Tabling1.jpg']};
+const photoLists={'gallery-stewardship':['Stewardship1.jpg','Stewardship2.jpg'],'gallery-fire':['Fire1.jpg','Fire2.jpg'],'gallery-fisheries':['Fisheries1.jpg','Fisheries2.jpg'],'gallery-research':['Research1.jpg','Research3.jpg', 'Research4.jpeg'],'gallery-education':['Education1.jpg','Education2.jpg','Education3.jpg'],'gallery-surveying':['Surveying1.jpg'],'gallery-tabling':['Tabling1.jpg']};
 function folderFor(id){return id.replace('gallery-','');}
 function renderGalleries(){Object.keys(photoLists).forEach(id=>{const container=document.getElementById(id);if(!container)return;const folder=folderFor(id);photoLists[id].forEach(filename=>{const img=document.createElement('img');img.src=`images/${folder}/${filename}`;img.alt='';img.onclick=()=>openLightbox(img.src);container.appendChild(img);});});}
 renderGalleries();
