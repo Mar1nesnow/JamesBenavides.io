@@ -145,15 +145,57 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 /* ---- Photo gallery (GitHub-hosted images) ---- */
 .photo-gallery-area{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
 .photo-gallery-label{font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px;display:block;}
-.photo-gallery{display:flex;gap:10px;flex-wrap:wrap;}
+.photo-gallery{display:flex;gap:12px;flex-wrap:wrap;}
 .photo-gallery img{
-  width:110px;height:78px;object-fit:cover;border-radius:6px;
+  width:200px;height:140px;object-fit:cover;border-radius:8px;
   flex-shrink:0;border:1px solid var(--line);
-  box-shadow:0 1px 4px rgba(26,78,110,.08);
+  box-shadow:0 2px 8px rgba(26,78,110,.12);
+  cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;
 }
+.photo-gallery img:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 6px 16px rgba(26,78,110,.2);}
 .photo-gallery:empty::after{
   content:'No photos yet — add <img> tags pointing to files in your /images folder.';
   font-size:.78rem;color:var(--muted);font-style:italic;
+}
+
+/* side-by-side layout for skill cards w/ photos */
+@media(min-width:860px){
+  .skill-card.has-photos{display:flex;gap:24px;align-items:flex-start;}
+  .skill-card.has-photos .skill-card-main{flex:1 1 auto;min-width:0;}
+  .skill-card.has-photos .photo-gallery-area{
+    flex:0 0 220px;margin-top:0;padding-top:0;padding-left:24px;
+    border-top:none;border-left:1px solid var(--line);
+  }
+  .skill-card.has-photos .photo-gallery{flex-direction:column;}
+  .skill-card.has-photos .photo-gallery img{width:200px;height:140px;}
+}
+
+/* lightbox */
+#lightbox{
+  position:fixed;inset:0;z-index:100;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(8,20,26,.82);backdrop-filter:blur(4px);
+  cursor:zoom-out;
+}
+#lightbox.active{display:flex;animation:fade .2s ease both;}
+#lightbox img{
+  max-width:90vw;max-height:88vh;border-radius:10px;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);
+  border:2px solid rgba(255,255,255,.15);
+}
+
+/* prose card for About / Media text */
+.prose-card{
+  background:var(--card-bg);border:1px solid var(--line);border-radius:8px;
+  padding:26px 28px;box-shadow:0 1px 6px rgba(26,78,110,.06);
+  backdrop-filter:blur(4px);
+}
+.prose-card p{font-size:.95rem;margin-bottom:14px}
+.prose-card p:last-child{margin-bottom:0}
+.media-card{
+  background:var(--card-bg);border:1px solid var(--line);border-radius:8px;
+  padding:22px 24px;box-shadow:0 1px 6px rgba(26,78,110,.06);
+  backdrop-filter:blur(4px);
 }
 
 /* ---- Media ---- */
@@ -191,6 +233,10 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 <body>
 
 <canvas id="fishCanvas"></canvas>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt=""/>
+</div>
 
 <div id="foodBag">
   <div id="bagLabel">Fish Food</div>
@@ -374,13 +420,15 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <p class="page-tagline">a little about my background, education, and where I've worked.</p>
     </div>
     <div class="group">
-      <p style="font-size:.95rem;margin-bottom:14px">Howdy! I’m James Benavides.</p>
-      <p style="font-size:.95rem;margin-bottom:14px">I grew up on the Gulf of Mexico, where my love for the natural world began. Exploring coastal ecosystems, collecting shells on the beach, and observing the incredible diversity of marine life sparked a fascination with biology that eventually led me to earn a degree in it.</p>
-      <p style="font-size:.95rem;margin-bottom:14px">My passion for the environment has taken me from North Carolina and Maine to Denmark and, most recently, Iowa. Along the way, I have developed research projects focused on oyster aquaculture, sea star ecology, and scallop behavior. </p>
-      <p style="font-size:.95rem;margin-bottom:14px">But science doesn’t stop in the lab. My experiences in the field have been just as important. Working in coastal fisheries in Texas strengthened my skills in boat operation and fisheries sampling techniques, while land stewardship in Iowa has given me hands-on experience with equipment such as chainsaws, trenchers, and mowers.</p>
-      <p style="font-size:.95rem;margin-bottom:14px">Community is at the heart of everything I do. Whether I’m designing research projects that address community needs or leading environmental education programs for students and adults, I believe that meaningful work should benefit both people and the environment.</p>
-      <p style="font-size:.95rem;margin-bottom:14px">Outside of work, I’m always looking to improve my birding and fishing skills. Birds I can watch, fish I can eat—what more could you ask for?</p>
-      <p style="font-size:.95rem;margin-bottom:14px">Welcome to my page! 🌿🐟🦅</p>
+      <div class="prose-card">
+        <p>Howdy! I'm James Benavides.</p>
+        <p>I grew up on the Gulf of Mexico, where my love for the natural world began. Exploring coastal ecosystems, collecting shells on the beach, and observing the incredible diversity of marine life sparked a fascination with biology that eventually led me to earn a degree in it.</p>
+        <p>My passion for the environment has taken me from North Carolina and Maine to Denmark and, most recently, Iowa. Along the way, I have developed research projects focused on oyster aquaculture, sea star ecology, and scallop behavior. </p>
+        <p>But science doesn't stop in the lab. My experiences in the field have been just as important. Working in coastal fisheries in Texas strengthened my skills in boat operation and fisheries sampling techniques, while land stewardship in Iowa has given me hands-on experience with equipment such as chainsaws, trenchers, and mowers.</p>
+        <p>Community is at the heart of everything I do. Whether I'm designing research projects that address community needs or leading environmental education programs for students and adults, I believe that meaningful work should benefit both people and the environment.</p>
+        <p>Outside of work, I'm always looking to improve my birding and fishing skills. Birds I can watch, fish I can eat—what more could you ask for?</p>
+        <p>Welcome to my page! 🌿🐟🦅</p>
+      </div>
     </div>
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
@@ -393,6 +441,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <p class="page-tagline">the tools, techniques, and field methods I bring to land stewardship, coastal fisheries, and marine research.</p>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Land Stewardship</div>
       <div class="skill-card-summary">Restoring native prairie, woodland, and riparian habitats through Timber Stand Improvement (TSI) and Invasive Species Management projects.</div>
       <div class="skill-card-body">
@@ -401,12 +450,14 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Herbicide application</span><span class="skill-tag">Skid steer operation</span><span class="skill-tag">Chainsaw</span><span class="skill-tag">Brush cutting</span><span class="skill-tag">Invasive species removal</span><span class="skill-tag">Timber Stand Improvement</span>
       </div>
+      </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
         <div class="photo-gallery" id="gallery-stewardship"></div>
       </div>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Prescribed Fire</div>
       <div class="skill-card-summary">Burning land to reduce woody undergrowth and invasive spread, and to aid in native plant recovery.</div>
       <div class="skill-card-body">
@@ -416,12 +467,14 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Drip torch operation</span><span class="skill-tag">Fire line holding &amp; monitoring</span><span class="skill-tag">Smoke &amp; weather assessment</span><span class="skill-tag">Firebreak preparation</span>
       </div>
+      </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
         <div class="photo-gallery" id="gallery-fire"></div>
       </div>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Fisheries Field Methods</div>
       <div class="skill-card-summary">Monitoring estuarine and offshore habitats — adapting to tides, weather, and dynamic conditions to collect reliable data in the field.</div>
       <div class="skill-card-body">
@@ -431,12 +484,14 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <div class="skill-tags">
         <span class="skill-tag">Bag seining</span><span class="skill-tag">Side-scan sonar</span><span class="skill-tag">Quadrat sampling</span><span class="skill-tag">Longline deployment</span><span class="skill-tag">YSI water quality monitoring</span><span class="skill-tag">Small vessel operation</span>
       </div>
+      </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
         <div class="photo-gallery" id="gallery-fisheries"></div>
       </div>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Research Design &amp; Presentation</div>
       <div class="skill-card-summary">Four research projects built from the ground up — from pilot experiments to protocols designed for future continuation.</div>
       <div class="skill-card-body">
@@ -445,6 +500,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       </div>
       <div class="skill-tags">
         <span class="skill-tag">Animal husbandry</span><span class="skill-tag">RStudio</span><span class="skill-tag">Excel</span><span class="skill-tag">ArcGIS</span><span class="skill-tag">SOP development</span><span class="skill-tag">Experimentation</span><span class="skill-tag">Poster presentation</span>
+      </div>
       </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
@@ -463,24 +519,29 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
     </div>
     <div class="media-section">
       <div class="media-section-label">Podcast</div>
+      <div class="media-card">
       <ul class="link-list">
         <li>
           <a href="https://open.spotify.com/episode/286qn6wZA8FMIsA0r6vFPK?si=b28b5227fecf4e29" target="_blank"><span class="ll-meta">Darling Marine Lab · 2024</span><span class="ll-title">Salty Talks: Sustainable Agriculture in Maine</span></a>
           <span class="ll-desc">Discussing how I intersected Western science and Indigenous knowledge in my oyster aquaculture research.</span>
         </li>
       </ul>
+      </div>
     </div>
     <div class="media-section">
       <div class="media-section-label">Video</div>
+      <div class="media-card">
       <ul class="link-list">
         <li>
           <a href="https://www.youtube.com/watch?v=prm94H-AAvs" target="_blank"><span class="ll-meta">Bowdoin / Schiller Center · 2023</span><span class="ll-title">How Will Sea Stars Grow in Warming Waters?</span></a>
           <span class="ll-desc">Video feature on my sea star behavioral research at Bowdoin's Coastal Studies Center.</span>
         </li>
       </ul>
+      </div>
     </div>
     <div class="media-section">
       <div class="media-section-label">Press &amp; Articles</div>
+      <div class="media-card">
       <ul class="link-list">
         <li>
           <a href="http://bowdoin.edu/news/2023/12/schiller-semester-ends-with-a-tidal-wave-of-student-research.html" target="_blank"><span class="ll-meta">Bowdoin News · Dec 2023</span><span class="ll-title">Schiller Semester: A Tidal Wave of Student Research</span></a>
@@ -491,15 +552,18 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
           <span class="ll-desc">Marine science research fellows spotlight, featuring my sea star research.</span>
         </li>
       </ul>
+      </div>
     </div>
     <div class="media-section">
       <div class="media-section-label">Fellowships &amp; Features</div>
+      <div class="media-card">
       <ul class="link-list">
         <li>
           <a href="https://www.linkedin.com/feed/update/urn:li:activity:7269828295095947265/" target="_blank"><span class="ll-meta">Darling Marine Lab · 2024</span><span class="ll-title">Aquaculture Research Institute Fellow Spotlight</span></a>
           <span class="ll-desc">A highlight of my oyster aquaculture project from the ARI Research Fellow program.</span>
         </li>
       </ul>
+      </div>
     </div>
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
@@ -512,6 +576,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
       <p class="page-tagline">connecting communities to conservation through programs, surveys, and outreach — from elementary classrooms to boat ramps.</p>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Education Programming</div>
       <div class="skill-card-summary">Facilitating hands-on field education for school groups and the general public, covering aquatic stream health, ornithology, and general ecology.</div>
       <div class="skill-card-body">
@@ -519,12 +584,14 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>I also developed and delivered an educational field program on harmful algal blooms for Texas Master Naturalists, complete with live water quality sampling demonstrations and instruction on HAB identification and proper response protocols.</p>
       </div>
       <div class="skill-tags"><span class="skill-tag">Public speaking</span><span class="skill-tag">Community outreach</span></div>
+      </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
         <div class="photo-gallery" id="gallery-education"></div>
       </div>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Public Surveying</div>
       <div class="skill-card-summary">Conducting creel surveys at boat ramps to learn about angler catch, bait, and trip experience — building a clearer picture of fishing behaviors and population pressures.</div>
       <div class="skill-card-body">
@@ -532,12 +599,14 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>Being kind, approachable, and genuinely curious about someone's day consistently produced the best data. Good conversation and good science aren't mutually exclusive.</p>
       </div>
       <div class="skill-tags"><span class="skill-tag">Public engagement</span><span class="skill-tag">Angler surveys</span><span class="skill-tag">Fish identification</span><span class="skill-tag">Data collection</span></div>
+      </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
         <div class="photo-gallery" id="gallery-surveying"></div>
       </div>
     </div>
     <div class="skill-card">
+      <div class="skill-card-main">
       <div class="skill-card-title">Outreach &amp; Tabling</div>
       <div class="skill-card-summary">Representing organizations at public events — meeting people where they are and making conservation feel accessible and worth caring about.</div>
       <div class="skill-card-body">
@@ -545,6 +614,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         <p>Enthusiasm is contagious. Kindness makes people stop and stay. Those two things make for a great day of outreach.</p>
       </div>
       <div class="skill-tags"><span class="skill-tag">Public engagement</span><span class="skill-tag">Event tabling</span><span class="skill-tag">Science communication</span></div>
+      </div>
       <div class="photo-gallery-area">
         <span class="photo-gallery-label">Photos</span>
         <div class="photo-gallery" id="gallery-tabling"></div>
@@ -600,15 +670,29 @@ function renderGalleries(){
     const container=document.getElementById(id);
     if(!container) return;
     const folder=folderFor(id);
+    const card=container.closest('.skill-card');
+    if(photoLists[id].length>0 && card) card.classList.add('has-photos');
     photoLists[id].forEach(filename=>{
       const img=document.createElement('img');
       img.src=`images/${folder}/${filename}`;
       img.alt='';
+      img.onclick=()=>openLightbox(img.src);
       container.appendChild(img);
     });
   });
 }
 renderGalleries();
+
+/* ====== LIGHTBOX ====== */
+function openLightbox(src){
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src=src;
+  lb.classList.add('active');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
 
 /* ====== NAV ====== */
 function showPage(id){
