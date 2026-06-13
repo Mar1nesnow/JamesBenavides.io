@@ -10,199 +10,210 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#ffffff;
-  --ink:#1a1a1a;
-  --muted:#8a8a8a;
-  --line:#ececec;
+  --bg:#eef6fa;
+  --ink:#1c2f3a;
+  --muted:#6b8a99;
+  --line:#cde0ea;
+  --ocean-deep:#1a4e6e;
+  --ocean-mid:#2e7da6;
+  --ocean-light:#8ac8e0;
+  --sand:#f0e8d4;
+  --sand-dark:#c8b48a;
+  --card-bg:rgba(255,255,255,0.82);
+  --tag-bg:#d8edf7;
+  --tag-ink:#1a4e6e;
   --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{
   font-family:var(--sans);background:var(--bg);color:var(--ink);
   font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
-.wrap{max-width:780px;margin:0 auto;padding:80px 48px 56px;min-height:100vh;display:flex;flex-direction:column}
+
+/* ---- subtle ocean background ---- */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;
+  background:linear-gradient(170deg,
+    #f0f8fc 0%,
+    #e4f2f8 40%,
+    #d4eaf6 70%,
+    #c8dff0 100%
+  );
+}
+/* soft wave shimmer at bottom */
+body::after{
+  content:'';position:fixed;bottom:0;left:0;right:0;height:120px;z-index:-1;
+  background:linear-gradient(0deg,rgba(200,223,240,.5) 0%,transparent 100%);
+  pointer-events:none;
+}
+
+#fishCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ---- Draggable food bag ---- */
+#foodBag{
+  position:fixed;right:24px;top:50%;transform:translateY(-50%);
+  z-index:20;cursor:grab;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+#foodBag:active{cursor:grabbing;}
+#bagLabel{
+  font-family:var(--sans);font-size:.72rem;font-weight:600;
+  color:var(--ocean-deep);background:rgba(255,255,255,.85);
+  padding:2px 8px;border-radius:10px;border:1px solid var(--line);
+  pointer-events:none;
+}
+#bagSvg{filter:drop-shadow(0 3px 8px rgba(30,80,120,.18));pointer-events:none;}
+#bagCount{
+  font-family:var(--sans);font-size:.72rem;font-weight:600;
+  color:#fff;background:var(--ocean-mid);
+  padding:2px 9px;border-radius:10px;pointer-events:none;
+}
+#bagTip{
+  font-family:var(--sans);font-size:.68rem;color:var(--muted);
+  text-align:center;max-width:80px;line-height:1.3;pointer-events:none;
+}
+
+/* ---- Drag ghost ---- */
+#dragGhost{
+  position:fixed;z-index:30;pointer-events:none;opacity:0;
+  transition:opacity .1s;
+}
+
+/* ---- Content ---- */
+.wrap{
+  max-width:780px;margin:0 auto;padding:80px 48px 56px;
+  min-height:100vh;display:flex;flex-direction:column;
+  position:relative;z-index:1;
+}
 .view{display:none;flex:1}
 .view.active{display:flex;flex-direction:column;flex:1;animation:fade .25s ease both}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .15s,color .15s}
-a:hover{border-color:var(--ink)}
+a{color:var(--ocean-mid);text-decoration:none;border-bottom:1px solid var(--ocean-light);transition:border-color .15s,color .15s}
+a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
-/* ---------- Home ---------- */
-.home-name{font-size:2.4rem;font-weight:600;letter-spacing:-.2px;margin-bottom:6px}
+/* ---- Home ---- */
+.home-name{font-size:2.4rem;font-weight:600;letter-spacing:-.2px;margin-bottom:6px;color:var(--ocean-deep)}
 .home-role{color:var(--muted);font-size:.95rem;margin-bottom:22px}
 .home-tagline{font-size:1rem;color:var(--ink);max-width:52ch;margin-bottom:34px}
-
 .home-nav{display:flex;flex-wrap:wrap;gap:14px 36px;margin-bottom:40px}
 .home-nav button{
-  font-family:var(--sans);font-size:1.15rem;color:var(--ink);
-  background:none;border:none;cursor:pointer;text-align:left;
-  padding:0;width:fit-content;border-bottom:1px solid transparent;
-  transition:color .15s,border-color .15s;
+  font-family:var(--sans);font-size:1.15rem;color:var(--ocean-deep);
+  background:none;border:none;cursor:pointer;padding:0;font-weight:500;
+  border-bottom:1px solid transparent;transition:color .15s,border-color .15s;
 }
-.home-nav button:hover{color:var(--muted);border-color:var(--line)}
-
+.home-nav button:hover{color:var(--ocean-mid);border-color:var(--ocean-light)}
 .home-spacer{flex:1}
-
-.home-socials{display:flex;gap:32px;flex-wrap:wrap;font-size:1.05rem;color:var(--ink)}
-.home-socials a{color:var(--ink);border-color:transparent}
-.home-socials a:hover{color:var(--muted);border-color:var(--line)}
+.home-socials{display:flex;gap:32px;flex-wrap:wrap;font-size:1.05rem}
+.home-socials a{color:var(--ocean-mid);border-color:var(--ocean-light)}
 .home-socials span{color:var(--muted);font-size:.85rem;align-self:center}
 
-/* ---------- Swimming fish background ---------- */
-.fish-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
-.fish{position:absolute;animation-timing-function:linear;animation-iteration-count:infinite;opacity:.55}
-.fish svg{display:block;animation:bob ease-in-out infinite alternate}
-@keyframes swim-right{from{left:-12%}to{left:112%}}
-@keyframes swim-left{from{left:112%}to{left:-12%}}
-@keyframes bob{from{transform:translateY(-4px)}to{transform:translateY(4px)}}
-.fish.face-left svg{animation-name:bob-flip}
-@keyframes bob-flip{from{transform:scaleX(-1) translateY(-4px)}to{transform:scaleX(-1) translateY(4px)}}
-@media(prefers-reduced-motion:reduce){.fish,.fish svg{animation:none}}
-
-/* ---------- Subpages ---------- */
+/* ---- Subpages ---- */
 .back{
   font-family:var(--sans);font-size:.85rem;color:var(--muted);
   background:none;border:none;cursor:pointer;padding:0;margin-bottom:36px;
   border-bottom:1px solid transparent;transition:color .15s,border-color .15s;
 }
-.back:hover{color:var(--ink);border-color:var(--line)}
+.back:hover{color:var(--ocean-mid);border-color:var(--ocean-light)}
+.page-title{font-size:.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:var(--ocean-deep)}
+.page-tagline{color:var(--muted);font-size:.95rem;margin-bottom:40px}
 
-.page-title{
-  font-size:.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;
-  margin-bottom:10px;
-}
-.page-tagline{color:var(--muted);font-size:.95rem;margin-bottom:40px;}
-
-/* ---------- Content groups ---------- */
 .group{margin-bottom:48px}
-.group-label{
-  font-size:.7rem;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--line);
-}
-
-/* ---------- Entries ---------- */
+.group-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 .entry{margin-bottom:32px}
 .entry:last-child{margin-bottom:0}
 .entry-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:6px}
-.entry-title{font-weight:600;font-size:1rem}
+.entry-title{font-weight:600;font-size:1rem;color:var(--ocean-deep)}
 .entry-org{color:var(--muted);font-size:.9rem}
 .entry-date{color:var(--muted);font-size:.8rem;margin-left:auto;white-space:nowrap}
 .entry p{font-size:.95rem;color:var(--ink);margin-bottom:8px}
-.entry ul{list-style:none;display:flex;flex-direction:column;gap:4px;margin:8px 0;}
+.entry ul{list-style:none;display:flex;flex-direction:column;gap:4px;margin:8px 0}
 .entry ul li{font-size:.9rem;color:var(--ink);padding-left:14px;position:relative}
 .entry ul li::before{content:'–';position:absolute;left:0;color:var(--muted)}
-.entry-skills{font-size:.82rem;color:var(--muted);margin-top:6px}
 
-/* ---------- Skills page ---------- */
-.skill-card{
-  border:1px solid var(--line);border-radius:6px;padding:22px 24px;margin-bottom:20px;
-}
+.skill-card{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:22px 24px;margin-bottom:20px;box-shadow:0 1px 6px rgba(26,78,110,.06);backdrop-filter:blur(4px)}
 .skill-card:last-child{margin-bottom:0}
-.skill-card-title{font-weight:600;font-size:1rem;margin-bottom:6px}
-.skill-card-summary{font-size:.92rem;color:var(--muted);margin-bottom:12px;line-height:1.6;}
-.skill-card-body{margin-bottom:14px;}
-.skill-card-body p{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:8px;}
-.skill-card-body p:last-child{margin-bottom:0;}
-.skill-tags{display:flex;flex-wrap:wrap;gap:7px;}
-.skill-tag{
-  font-size:.78rem;background:#f4f4f4;color:var(--ink);
-  padding:3px 10px;border-radius:20px;white-space:nowrap;
-}
+.skill-card-title{font-weight:600;font-size:1rem;margin-bottom:6px;color:var(--ocean-deep)}
+.skill-card-summary{font-size:.92rem;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.skill-card-body{margin-bottom:14px}
+.skill-card-body p{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:8px}
+.skill-card-body p:last-child{margin-bottom:0}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+.skill-tag{font-size:.78rem;background:var(--tag-bg);color:var(--tag-ink);padding:3px 10px;border-radius:20px;white-space:nowrap}
 
-/* ---------- Photo strip ---------- */
 .photo-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.photo-strip img{width:110px;height:78px;object-fit:cover;border-radius:2px}
+.photo-strip img{width:110px;height:78px;object-fit:cover;border-radius:4px}
 
-/* ---------- Link list (media / hobbies) ---------- */
-.link-list{list-style:none;display:flex;flex-direction:column;gap:18px;}
-.link-list .ll-title{font-weight:600;display:block}
+.link-list{list-style:none;display:flex;flex-direction:column;gap:18px}
+.link-list .ll-title{font-weight:600;display:block;color:var(--ocean-deep)}
 .link-list .ll-meta{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px}
 .link-list .ll-desc{font-size:.9rem;color:var(--muted);display:block;margin-top:4px}
 
-/* ---------- Media page ---------- */
 .media-section{margin-bottom:44px}
-.media-section-label{
-  font-size:.7rem;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:8px;
-}
+.media-section-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:8px}
 
-/* ---------- Footer ---------- */
-.site-footer{
-  margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
-  font-size:.8rem;color:var(--muted);
-}
+.site-footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 
 @media(max-width:700px){
   .wrap{padding:56px 22px 40px}
   .entry-date{margin-left:0}
   .skill-card{padding:16px 18px}
+  #foodBag{right:10px}
 }
 </style>
 </head>
 <body>
+
+<canvas id="fishCanvas"></canvas>
+
+<!-- Draggable food bag -->
+<div id="foodBag">
+  <div id="bagLabel">Fish Food</div>
+  <svg id="bagSvg" width="58" height="72" viewBox="0 0 58 72">
+    <!-- bag body -->
+    <path d="M10 22 Q8 68 29 70 Q50 68 48 22 Z" fill="#d4a44c" stroke="#b8883a" stroke-width="1.5"/>
+    <!-- bag shading -->
+    <path d="M14 26 Q13 62 29 65 Q22 62 21 26 Z" fill="rgba(255,255,255,0.18)"/>
+    <!-- bag top fold -->
+    <path d="M9 22 Q29 16 49 22 Q29 18 9 22 Z" fill="#b8883a"/>
+    <!-- bag tie/clip -->
+    <rect x="23" y="12" width="12" height="11" rx="3" fill="#8a6020" stroke="#6a4810" stroke-width="1"/>
+    <!-- clip highlight -->
+    <rect x="25" y="14" width="4" height="3" rx="1" fill="rgba(255,255,255,0.3)"/>
+    <!-- dots on bag -->
+    <circle cx="22" cy="40" r="2.5" fill="rgba(255,255,255,0.25)"/>
+    <circle cx="33" cy="50" r="2" fill="rgba(255,255,255,0.2)"/>
+    <circle cx="27" cy="58" r="1.8" fill="rgba(255,255,255,0.2)"/>
+    <!-- handle loop -->
+    <path d="M23 12 Q29 4 35 12" fill="none" stroke="#8a6020" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+  <div id="bagCount">∞</div>
+  <div id="bagTip">drag &amp; drop to feed!</div>
+</div>
+
+<!-- Ghost pellet shown while dragging -->
+<div id="dragGhost">
+  <svg width="14" height="14" viewBox="0 0 14 14">
+    <circle cx="7" cy="7" r="6" fill="#c8a060"/>
+    <circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.45)"/>
+  </svg>
+</div>
+
 <div class="wrap">
 
-  <!-- ============ HOME ============ -->
+  <!-- HOME -->
   <main id="home" class="view active">
-    <div class="fish-bg" aria-hidden="true">
-      <div class="fish" style="top:14%;width:46px;animation:swim-right 38s linear infinite;animation-delay:-4s">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" style="animation-duration:2.6s">
-          <ellipse cx="45" cy="30" rx="35" ry="18" fill="#cfe8f3"/>
-          <path d="M78 30 L100 14 L100 46 Z" fill="#cfe8f3"/>
-          <path d="M40 14 L52 4 L58 16 Z" fill="#cfe8f3"/>
-          <circle cx="24" cy="25" r="3" fill="#3a4a52"/>
-        </svg>
-      </div>
-      <div class="fish face-left" style="top:62%;width:34px;animation:swim-left 46s linear infinite;animation-delay:-12s">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" style="animation-duration:3.1s;transform:scaleX(-1)">
-          <ellipse cx="45" cy="30" rx="35" ry="18" fill="#ffd9c2"/>
-          <path d="M78 30 L100 14 L100 46 Z" fill="#ffd9c2"/>
-          <path d="M40 14 L52 4 L58 16 Z" fill="#ffd9c2"/>
-          <circle cx="24" cy="25" r="3" fill="#5a4640"/>
-        </svg>
-      </div>
-      <div class="fish" style="top:38%;width:28px;animation:swim-right 55s linear infinite;animation-delay:-30s">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" style="animation-duration:2.2s">
-          <ellipse cx="45" cy="30" rx="35" ry="18" fill="#d8ecd2"/>
-          <path d="M78 30 L100 14 L100 46 Z" fill="#d8ecd2"/>
-          <path d="M40 14 L52 4 L58 16 Z" fill="#d8ecd2"/>
-          <circle cx="24" cy="25" r="3" fill="#3f4f3c"/>
-        </svg>
-      </div>
-      <div class="fish face-left" style="top:80%;width:40px;animation:swim-left 33s linear infinite;animation-delay:-6s">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" style="animation-duration:2.9s;transform:scaleX(-1)">
-          <ellipse cx="45" cy="30" rx="35" ry="18" fill="#f6e3b4"/>
-          <path d="M78 30 L100 14 L100 46 Z" fill="#f6e3b4"/>
-          <path d="M40 14 L52 4 L58 16 Z" fill="#f6e3b4"/>
-          <circle cx="24" cy="25" r="3" fill="#5a4f30"/>
-        </svg>
-      </div>
-      <div class="fish" style="top:25%;width:22px;animation:swim-right 62s linear infinite;animation-delay:-18s">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" style="animation-duration:2.4s">
-          <ellipse cx="45" cy="30" rx="35" ry="18" fill="#e3d6f0"/>
-          <path d="M78 30 L100 14 L100 46 Z" fill="#e3d6f0"/>
-          <path d="M40 14 L52 4 L58 16 Z" fill="#e3d6f0"/>
-          <circle cx="24" cy="25" r="3" fill="#4d4456"/>
-        </svg>
-      </div>
-    </div>
-
     <div class="home-name">James Benavides</div>
     <div class="home-role">Environmental Scientist</div>
     <p class="home-tagline">interested in marine ecosystems, land stewardship, and environmental education</p>
-
     <nav class="home-nav">
       <button onclick="showPage('about')">About</button>
-      <button onclick="showPage('skills')">Skills</button>
-      <button onclick="showPage('media')">Media</button>
-      <button onclick="showPage('engagement')">Public Engagement</button>
-      <button onclick="showPage('fun')">Beyond the Field</button>
+      <button onclick="showPage('skills')">Field / Lab Skills</button>
+      <button onclick="showPage('engagement')">Public Engagement / Education</button>
+      <button onclick="showPage('media')">Featured Media</button>
     </nav>
-
     <div class="home-spacer"></div>
-
     <div class="home-socials">
       <a href="https://www.linkedin.com/in/james-benavides/" target="_blank">LinkedIn</a>
       <a href="mailto:JamesBenavides003@gmail.com">Email</a>
@@ -210,80 +221,50 @@ a:hover{border-color:var(--ink)}
     </div>
   </main>
 
-  <!-- ============ ABOUT ============ -->
+  <!-- ABOUT -->
   <main id="about" class="view">
     <button class="back" onclick="showHome()">← home</button>
     <h1 class="page-title">About</h1>
     <p class="page-tagline">a little about my background, education, and where I've worked.</p>
-
     <div class="group">
-      <p style="font-size:.95rem;margin-bottom:14px;max-width:50ch">I'm an environmental scientist with a passion for understanding ecosystems through both data and lived experience.</p>
-      <p style="font-size:.95rem;margin-bottom:14px;max-width:50ch">In 2025, I earned dual degrees in <strong>Biology (Marine, Ecology, and Evolution)</strong> and <strong>Gender, Sexuality, and Women's Studies</strong> from <strong>Bowdoin College</strong> in Maine — an interdisciplinary foundation that shapes how I approach environmental work as both science and story.</p>
-      <p style="font-size:.95rem;margin-bottom:14px;max-width:50ch">My research experience spans sea star behavior, oyster aquaculture, and marine protist culturing, with experience designing, conducting, and presenting projects. With <strong>Texas Parks and Wildlife — Coastal Fisheries</strong>, I worked on permitting, public engagement, and fisheries sampling, gaining insight into applied conservation at the state level.</p>
-      <p style="font-size:.95rem;margin-bottom:14px;max-width:50ch">I currently serve as an <strong>AmeriCorps</strong> member at <strong>Whiterock Conservancy</strong> in Iowa, focused on land stewardship — invasive species removal, soil and water sampling, environmental education, and trail and campground maintenance.</p>
-      <p style="font-size:.95rem;max-width:50ch">I value preparation and safety in the field, but I also believe curiosity and connection to place are just as essential. Moving forward, I'm eager to deepen my skills in data analysis, programming, scientific communication, and grant writing alongside hands-on environmental work.</p>
+      <p style="font-size:.95rem;margin-bottom:14px">I'm an environmental scientist with a passion for understanding ecosystems through both data and lived experience.</p>
+      <p style="font-size:.95rem;margin-bottom:14px">In 2025, I earned dual degrees in <strong>Biology (Marine, Ecology, and Evolution)</strong> and <strong>Gender, Sexuality, and Women's Studies</strong> from <strong>Bowdoin College</strong> in Maine — an interdisciplinary foundation that shapes how I approach environmental work as both science and story.</p>
+      <p style="font-size:.95rem;margin-bottom:14px">My research experience spans sea star behavior, oyster aquaculture, and marine protist culturing, with experience designing, conducting, and presenting projects. With <strong>Texas Parks and Wildlife — Coastal Fisheries</strong>, I worked on permitting, public engagement, and fisheries sampling, gaining insight into applied conservation at the state level.</p>
+      <p style="font-size:.95rem;margin-bottom:14px">I currently serve as an <strong>AmeriCorps</strong> member at <strong>Whiterock Conservancy</strong> in Iowa, focused on land stewardship — invasive species removal, soil and water sampling, environmental education, and trail and campground maintenance.</p>
+      <p style="font-size:.95rem">I value preparation and safety in the field, but I also believe curiosity and connection to place are just as essential. Moving forward, I'm eager to deepen my skills in data analysis, programming, scientific communication, and grant writing alongside hands-on environmental work.</p>
     </div>
-
     <div class="group">
       <div class="group-label">Experience</div>
-
       <div class="entry">
-        <div class="entry-head">
-          <span class="entry-title">Land Operations &amp; Outreach</span>
-          <span class="entry-org">— Whiterock Conservancy</span>
-          <span class="entry-date">Dec 2025 — now</span>
-        </div>
+        <div class="entry-head"><span class="entry-title">Land Operations &amp; Outreach</span><span class="entry-org">— Whiterock Conservancy</span><span class="entry-date">Dec 2025 — now</span></div>
         <p>AmeriCorps member supporting invasive species removal, prescribed burns, and volunteer outreach.</p>
       </div>
-
       <div class="entry">
-        <div class="entry-head">
-          <span class="entry-title">Coastal Fisheries Intern</span>
-          <span class="entry-org">— Texas Parks &amp; Wildlife</span>
-          <span class="entry-date">Jun – Sept 2025</span>
-        </div>
+        <div class="entry-head"><span class="entry-title">Coastal Fisheries Intern</span><span class="entry-org">— Texas Parks &amp; Wildlife</span><span class="entry-date">Jun – Sept 2025</span></div>
         <p>Habitat assessments via sonar scanning, fisheries sampling, and educational programs on harmful algal blooms at Galveston Bay.</p>
       </div>
-
       <div class="entry">
-        <div class="entry-head">
-          <span class="entry-title">Aquaculture Researcher</span>
-          <span class="entry-org">— Darling Marine Center</span>
-          <span class="entry-date">Jun – Aug 2024</span>
-        </div>
+        <div class="entry-head"><span class="entry-title">Aquaculture Researcher</span><span class="entry-org">— Darling Marine Center</span><span class="entry-date">Jun – Aug 2024</span></div>
         <p>Fellowship weaving Indigenous Knowledge and Western Science to research tidal-energy oyster tumbling as a low-cost aquaculture alternative.</p>
       </div>
-
       <div class="entry">
-        <div class="entry-head">
-          <span class="entry-title">Animal Behavior Researcher</span>
-          <span class="entry-org">— Bowdoin College</span>
-          <span class="entry-date">Jun – Dec 2023</span>
-        </div>
+        <div class="entry-head"><span class="entry-title">Animal Behavior Researcher</span><span class="entry-org">— Bowdoin College</span><span class="entry-date">Jun – Dec 2023</span></div>
         <p>Monitored scallop responses to light and sea star feeding rates to inform fisheries management in the warming Gulf of Maine.</p>
       </div>
-
       <div class="entry">
-        <div class="entry-head">
-          <span class="entry-title">Microbial Oceanography Researcher</span>
-          <span class="entry-org">— Duke University Marine Lab</span>
-          <span class="entry-date">Jun – Aug 2022</span>
-        </div>
+        <div class="entry-head"><span class="entry-title">Microbial Oceanography Researcher</span><span class="entry-org">— Duke University Marine Lab</span><span class="entry-date">Jun – Aug 2022</span></div>
         <p>Created a protocol for isolating Labyrinthulomycetes using pollen baiting and experimental agar treatments, for future studies on marine organic matter decomposition.</p>
       </div>
-
       <p style="margin-top:6px"><a href="#">view full résumé →</a></p>
     </div>
-
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
 
-  <!-- ============ SKILLS ============ -->
+  <!-- SKILLS -->
   <main id="skills" class="view">
     <button class="back" onclick="showHome()">← home</button>
-    <h1 class="page-title">Skills &amp; Expertise</h1>
+    <h1 class="page-title">Field / Lab Skills</h1>
     <p class="page-tagline">the tools, techniques, and field methods I bring to land stewardship, coastal fisheries, and marine research.</p>
-
     <div class="skill-card">
       <div class="skill-card-title">Land Stewardship</div>
       <div class="skill-card-summary">Restoring native prairie, woodland, and riparian habitats through Timber Stand Improvement (TSI) and Invasive Species Management projects.</div>
@@ -291,15 +272,9 @@ a:hover{border-color:var(--ink)}
         <p>This work involves assessing a habitat and deciding what is best for that space. Tackling invasive honeysuckle, for example, has been a large part of my work — but deciding to foliar spray vs. hack-and-squirt really depends on the time of year and what species surround the invasives. Taking down trees that appear healthy but are too dense requires an understanding of spacing that roughly separates a savanna from a woodland.</p>
       </div>
       <div class="skill-tags">
-        <span class="skill-tag">Herbicide application</span>
-        <span class="skill-tag">Skid steer operation</span>
-        <span class="skill-tag">Chainsaw</span>
-        <span class="skill-tag">Brush cutting</span>
-        <span class="skill-tag">Invasive species removal</span>
-        <span class="skill-tag">Timber Stand Improvement</span>
+        <span class="skill-tag">Herbicide application</span><span class="skill-tag">Skid steer operation</span><span class="skill-tag">Chainsaw</span><span class="skill-tag">Brush cutting</span><span class="skill-tag">Invasive species removal</span><span class="skill-tag">Timber Stand Improvement</span>
       </div>
     </div>
-
     <div class="skill-card">
       <div class="skill-card-title">Prescribed Fire</div>
       <div class="skill-card-summary">Burning land to reduce woody undergrowth and invasive spread, and to aid in native plant recovery.</div>
@@ -308,18 +283,12 @@ a:hover{border-color:var(--ink)}
         <p>In my first year of burning in 2026, I burned over 500 acres of land. I've completed my L-180 and S-130 certifications, and my S-190 is currently in progress.</p>
       </div>
       <div class="skill-tags">
-        <span class="skill-tag">Drip torch operation</span>
-        <span class="skill-tag">Fire line holding &amp; monitoring</span>
-        <span class="skill-tag">Smoke &amp; weather assessment</span>
-        <span class="skill-tag">Firebreak preparation</span>
+        <span class="skill-tag">Drip torch operation</span><span class="skill-tag">Fire line holding &amp; monitoring</span><span class="skill-tag">Smoke &amp; weather assessment</span><span class="skill-tag">Firebreak preparation</span>
       </div>
       <div class="photo-strip">
-        <img src="Whiterock1.jpg" alt="Running the torch during a prescribed fire">
-        <img src="Whiterock2.jpg" alt="Whiterock Conservancy">
-        <img src="Whiterock3.jpg" alt="Whiterock Conservancy">
+        <img src="Whiterock1.jpg" alt="Prescribed fire"><img src="Whiterock2.jpg" alt="Whiterock Conservancy"><img src="Whiterock3.jpg" alt="Whiterock Conservancy">
       </div>
     </div>
-
     <div class="skill-card">
       <div class="skill-card-title">Fisheries Field Methods</div>
       <div class="skill-card-summary">Monitoring estuarine and offshore habitats — adapting to tides, weather, and dynamic conditions to collect reliable data in the field.</div>
@@ -328,15 +297,9 @@ a:hover{border-color:var(--ink)}
         <p>I worked with oyster data collection, studied benthic biofouling, scanned for derelict crab traps using sonar, assessed juvenile fish populations, and worked with larger fish — including sharks — in offshore settings.</p>
       </div>
       <div class="skill-tags">
-        <span class="skill-tag">Bag seining</span>
-        <span class="skill-tag">Side-scan sonar</span>
-        <span class="skill-tag">Quadrat sampling</span>
-        <span class="skill-tag">Longline deployment</span>
-        <span class="skill-tag">YSI water quality monitoring</span>
-        <span class="skill-tag">Small vessel operation</span>
+        <span class="skill-tag">Bag seining</span><span class="skill-tag">Side-scan sonar</span><span class="skill-tag">Quadrat sampling</span><span class="skill-tag">Longline deployment</span><span class="skill-tag">YSI water quality monitoring</span><span class="skill-tag">Small vessel operation</span>
       </div>
     </div>
-
     <div class="skill-card">
       <div class="skill-card-title">Research Design &amp; Presentation</div>
       <div class="skill-card-summary">Four research projects built from the ground up — from pilot experiments to protocols designed for future continuation.</div>
@@ -345,93 +308,65 @@ a:hover{border-color:var(--ink)}
         <p>Data has been collected and processed in RStudio, Excel, and ArcGIS to create the most accessible version possible. Diagrams, graphs, and images are my best friend.</p>
       </div>
       <div class="skill-tags">
-        <span class="skill-tag">Animal husbandry</span>
-        <span class="skill-tag">RStudio</span>
-        <span class="skill-tag">Excel</span>
-        <span class="skill-tag">ArcGIS</span>
-        <span class="skill-tag">SOP development</span>
-        <span class="skill-tag">Experimentation</span>
-        <span class="skill-tag">Poster presentation</span>
+        <span class="skill-tag">Animal husbandry</span><span class="skill-tag">RStudio</span><span class="skill-tag">Excel</span><span class="skill-tag">ArcGIS</span><span class="skill-tag">SOP development</span><span class="skill-tag">Experimentation</span><span class="skill-tag">Poster presentation</span>
       </div>
     </div>
-
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
 
-  <!-- ============ MEDIA ============ -->
+  <!-- MEDIA -->
   <main id="media" class="view">
     <button class="back" onclick="showHome()">← home</button>
-    <h1 class="page-title">Media</h1>
+    <h1 class="page-title">Featured Media</h1>
     <p class="page-tagline">writing, interviews, videos, and features — science communication across formats and audiences.</p>
-
     <div class="media-section">
       <div class="media-section-label">Podcast</div>
       <ul class="link-list">
         <li>
-          <a href="https://open.spotify.com/episode/286qn6wZA8FMIsA0r6vFPK?si=b28b5227fecf4e29" target="_blank">
-            <span class="ll-meta">Darling Marine Lab · 2024</span>
-            <span class="ll-title">Salty Talks: Sustainable Agriculture in Maine</span>
-          </a>
+          <a href="https://open.spotify.com/episode/286qn6wZA8FMIsA0r6vFPK?si=b28b5227fecf4e29" target="_blank"><span class="ll-meta">Darling Marine Lab · 2024</span><span class="ll-title">Salty Talks: Sustainable Agriculture in Maine</span></a>
           <span class="ll-desc">Discussing how I intersected Western science and Indigenous knowledge in my oyster aquaculture research.</span>
         </li>
       </ul>
     </div>
-
     <div class="media-section">
       <div class="media-section-label">Video</div>
       <ul class="link-list">
         <li>
-          <a href="https://www.youtube.com/watch?v=prm94H-AAvs" target="_blank">
-            <span class="ll-meta">Bowdoin / Schiller Center · 2023</span>
-            <span class="ll-title">How Will Sea Stars Grow in Warming Waters?</span>
-          </a>
+          <a href="https://www.youtube.com/watch?v=prm94H-AAvs" target="_blank"><span class="ll-meta">Bowdoin / Schiller Center · 2023</span><span class="ll-title">How Will Sea Stars Grow in Warming Waters?</span></a>
           <span class="ll-desc">Video feature on my sea star behavioral research at Bowdoin's Coastal Studies Center.</span>
         </li>
       </ul>
     </div>
-
     <div class="media-section">
       <div class="media-section-label">Press &amp; Articles</div>
       <ul class="link-list">
         <li>
-          <a href="http://bowdoin.edu/news/2023/12/schiller-semester-ends-with-a-tidal-wave-of-student-research.html" target="_blank">
-            <span class="ll-meta">Bowdoin News · Dec 2023</span>
-            <span class="ll-title">Schiller Semester: A Tidal Wave of Student Research</span>
-          </a>
+          <a href="http://bowdoin.edu/news/2023/12/schiller-semester-ends-with-a-tidal-wave-of-student-research.html" target="_blank"><span class="ll-meta">Bowdoin News · Dec 2023</span><span class="ll-title">Schiller Semester: A Tidal Wave of Student Research</span></a>
           <span class="ll-desc">Overview of Bowdoin's Coastal Science Semester, featuring my scallop research.</span>
         </li>
         <li>
-          <a href="https://www.bowdoin.edu/news/2023/08/coastal-research-reveals-complexities-marine-life.html" target="_blank">
-            <span class="ll-meta">Bowdoin News · Aug 2023</span>
-            <span class="ll-title">Coastal Research Reveals Complexities of Marine Life</span>
-          </a>
+          <a href="https://www.bowdoin.edu/news/2023/08/coastal-research-reveals-complexities-marine-life.html" target="_blank"><span class="ll-meta">Bowdoin News · Aug 2023</span><span class="ll-title">Coastal Research Reveals Complexities of Marine Life</span></a>
           <span class="ll-desc">Marine science research fellows spotlight, featuring my sea star research.</span>
         </li>
       </ul>
     </div>
-
     <div class="media-section">
       <div class="media-section-label">Fellowships &amp; Features</div>
       <ul class="link-list">
         <li>
-          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7269828295095947265/" target="_blank">
-            <span class="ll-meta">Darling Marine Lab · 2024</span>
-            <span class="ll-title">Aquaculture Research Institute Fellow Spotlight</span>
-          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7269828295095947265/" target="_blank"><span class="ll-meta">Darling Marine Lab · 2024</span><span class="ll-title">Aquaculture Research Institute Fellow Spotlight</span></a>
           <span class="ll-desc">A highlight of my oyster aquaculture project from the ARI Research Fellow program.</span>
         </li>
       </ul>
     </div>
-
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
 
-  <!-- ============ PUBLIC ENGAGEMENT ============ -->
+  <!-- ENGAGEMENT -->
   <main id="engagement" class="view">
     <button class="back" onclick="showHome()">← home</button>
     <h1 class="page-title">Public Engagement &amp; Education</h1>
     <p class="page-tagline">connecting communities to conservation through programs, surveys, and outreach — from elementary classrooms to boat ramps.</p>
-
     <div class="skill-card">
       <div class="skill-card-title">Education Programming</div>
       <div class="skill-card-summary">Facilitating hands-on field education for school groups and the general public, covering aquatic stream health, ornithology, and general ecology.</div>
@@ -439,12 +374,8 @@ a:hover{border-color:var(--ink)}
         <p>Adapting to different age groups is a great — if fun — challenge. I've taken the same lesson and delivered it to a group of 9th graders immediately after finishing with a group of 3rd graders, which requires real flexibility in how you frame concepts and hold attention.</p>
         <p>I also developed and delivered an educational field program on harmful algal blooms for Texas Master Naturalists, complete with live water quality sampling demonstrations and instruction on HAB identification and proper response protocols.</p>
       </div>
-      <div class="skill-tags">
-        <span class="skill-tag">Public speaking</span>
-        <span class="skill-tag">Community outreach</span>
-      </div>
+      <div class="skill-tags"><span class="skill-tag">Public speaking</span><span class="skill-tag">Community outreach</span></div>
     </div>
-
     <div class="skill-card">
       <div class="skill-card-title">Public Surveying</div>
       <div class="skill-card-summary">Conducting creel surveys at boat ramps to learn about angler catch, bait, and trip experience — building a clearer picture of fishing behaviors and population pressures.</div>
@@ -452,14 +383,8 @@ a:hover{border-color:var(--ink)}
         <p>We recorded species, size, and catch numbers, which made for great practice in identification and handling of larger fish. The surveys also gave us a window into how people relate to and use these resources.</p>
         <p>Being kind, approachable, and genuinely curious about someone's day consistently produced the best data. Good conversation and good science aren't mutually exclusive.</p>
       </div>
-      <div class="skill-tags">
-        <span class="skill-tag">Public engagement</span>
-        <span class="skill-tag">Angler surveys</span>
-        <span class="skill-tag">Fish identification</span>
-        <span class="skill-tag">Data collection</span>
-      </div>
+      <div class="skill-tags"><span class="skill-tag">Public engagement</span><span class="skill-tag">Angler surveys</span><span class="skill-tag">Fish identification</span><span class="skill-tag">Data collection</span></div>
     </div>
-
     <div class="skill-card">
       <div class="skill-card-title">Outreach &amp; Tabling</div>
       <div class="skill-card-summary">Representing organizations at public events — meeting people where they are and making conservation feel accessible and worth caring about.</div>
@@ -467,72 +392,209 @@ a:hover{border-color:var(--ink)}
         <p>Good tabling means knowing your material, reading your crowd, and adjusting accordingly — whether you're talking to college students or families with young kids. The approach that works for one group rarely works for the other.</p>
         <p>Enthusiasm is contagious. Kindness makes people stop and stay. Those two things make for a great day of outreach.</p>
       </div>
-      <div class="skill-tags">
-        <span class="skill-tag">Public engagement</span>
-        <span class="skill-tag">Event tabling</span>
-        <span class="skill-tag">Science communication</span>
-      </div>
+      <div class="skill-tags"><span class="skill-tag">Public engagement</span><span class="skill-tag">Event tabling</span><span class="skill-tag">Science communication</span></div>
     </div>
-
-    <div class="site-footer">Coon Rapids, Iowa</div>
-  </main>
-
-  <!-- ============ FUN ============ -->
-  <main id="fun" class="view">
-    <button class="back" onclick="showHome()">← home</button>
-    <h1 class="page-title">Beyond the Field</h1>
-    <p class="page-tagline">life outside the lab and the land — hobbies, creativity, adventures, and whatever else makes me, me.</p>
-
-    <div class="group">
-      <div class="group-label">Hobbies &amp; Interests</div>
-      <ul class="link-list">
-        <li>
-          <span class="ll-meta">Hobby</span>
-          <span class="ll-title">Your hobby here</span>
-          <span class="ll-desc">Describe what you love about it, how long you've been doing it, or a fun memory.</span>
-        </li>
-        <li>
-          <span class="ll-meta">Travel</span>
-          <span class="ll-title">Favorite places</span>
-          <span class="ll-desc">Somewhere special — fieldwork, travel, or a place you hope to visit someday.</span>
-        </li>
-        <li>
-          <span class="ll-meta">Reading</span>
-          <span class="ll-title">What I'm reading</span>
-          <span class="ll-desc">A book, article, or paper you've been enjoying — science, fiction, or something unexpected.</span>
-        </li>
-        <li>
-          <span class="ll-meta">Music / Other</span>
-          <span class="ll-title">Something you love</span>
-          <span class="ll-desc">Music, cooking, sports, language learning — whatever brings you joy. Make it personal.</span>
-        </li>
-      </ul>
-    </div>
-
-    <div class="group">
-      <div class="group-label">Photos &amp; Memories</div>
-      <div class="photo-strip">
-        <img src="photo.jpg" alt="Photo">
-        <img src="photo.jpg" alt="Photo">
-        <img src="photo.jpg" alt="Photo">
-        <img src="photo.jpg" alt="Photo">
-      </div>
-    </div>
-
     <div class="site-footer">Coon Rapids, Iowa</div>
   </main>
 
 </div>
 
 <script>
+/* ====== NAV ====== */
 function showPage(id){
-  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function showHome(){
-  showPage('home');
+function showHome(){ showPage('home'); }
+
+/* ====== CANVAS FISH ====== */
+const canvas = document.getElementById('fishCanvas');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+// Simple flat colors — easy to read against light bg
+const COLORS = [
+  {body:'#f0a860', tail:'#d48030'},
+  {body:'#70c8e0', tail:'#3090b8'},
+  {body:'#f08878', tail:'#c85848'},
+  {body:'#80c880', tail:'#409040'},
+  {body:'#b8a0d8', tail:'#7860a8'},
+  {body:'#f8d060', tail:'#d0a020'},
+];
+
+class Fish {
+  constructor(){ this.init(true); }
+  init(first=false){
+    const c = COLORS[Math.floor(Math.random()*COLORS.length)];
+    this.col = c;
+    this.s = 14 + Math.random()*16;          // half-length ~14–30px
+    this.spd = 0.5 + Math.random()*0.8;
+    this.dir = Math.random()<.5 ? 1 : -1;
+    this.x = first ? Math.random()*canvas.width : (this.dir===1 ? -this.s*3 : canvas.width+this.s*3);
+    this.baseY = 80 + Math.random()*(canvas.height*0.78);
+    this.y = this.baseY;
+    this.bobA = 3 + Math.random()*5;
+    this.bobF = 0.3 + Math.random()*0.6;
+    this.bobP = Math.random()*Math.PI*2;
+    this.wagP = Math.random()*Math.PI*2;
+    this.target = null;
+    this.excited = 0;
+  }
+  update(t, foods){
+    // Find closest food
+    let best=null, bestD=200;
+    foods.forEach(f=>{ const d=Math.hypot(f.x-this.x,f.y-this.y); if(d<bestD){bestD=d;best=f;} });
+    this.target = best;
+
+    if(this.target){
+      const dx=this.target.x-this.x, dy=this.target.y-this.y;
+      const d=Math.hypot(dx,dy);
+      this.dir = dx>0?1:-1;
+      const spd=this.spd*2.8;
+      this.x+=dx/d*spd; this.y+=dy/d*spd*0.65;
+      if(d<8){ this.target.eaten=true; this.target=null; this.excited=1; }
+    } else {
+      this.x += this.spd*this.dir;
+      this.y = this.baseY + Math.sin(t*this.bobF+this.bobP)*this.bobA;
+      if(this.x>canvas.width+this.s*3||this.x<-this.s*3) this.init(false);
+    }
+    if(this.excited>0) this.excited=Math.max(0,this.excited-0.025);
+    this.wagP += 0.14;
+  }
+  draw(){
+    ctx.save();
+    ctx.translate(this.x,this.y);
+    if(this.dir===-1) ctx.scale(-1,1);
+    ctx.globalAlpha = 0.82;
+
+    const s=this.s;
+    const wag=Math.sin(this.wagP)*0.32;
+
+    // tail — simple triangle
+    ctx.beginPath();
+    ctx.moveTo(-s*0.6, 0);
+    ctx.lineTo(-s*1.1, -s*0.55+wag*s*0.6);
+    ctx.lineTo(-s*1.1,  s*0.55+wag*s*0.6);
+    ctx.closePath();
+    ctx.fillStyle = this.col.tail;
+    ctx.fill();
+
+    // body — oval
+    ctx.beginPath();
+    ctx.ellipse(0, 0, s*0.7, s*0.32, 0, 0, Math.PI*2);
+    ctx.fillStyle = this.excited>0
+      ? `rgba(255,240,120,${0.6+this.excited*0.4})`
+      : this.col.body;
+    ctx.fill();
+
+    // tiny dorsal fin
+    ctx.beginPath();
+    ctx.moveTo(s*0.05,-s*0.3);
+    ctx.lineTo(s*0.32,-s*0.54);
+    ctx.lineTo(s*0.52,-s*0.3);
+    ctx.closePath();
+    ctx.fillStyle=this.col.tail;
+    ctx.globalAlpha=0.65;
+    ctx.fill();
+    ctx.globalAlpha=0.82;
+
+    // eye
+    ctx.beginPath();
+    ctx.arc(s*0.38,-s*0.05,s*0.09,0,Math.PI*2);
+    ctx.fillStyle='#fff';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(s*0.41,-s*0.05,s*0.05,0,Math.PI*2);
+    ctx.fillStyle='#333';
+    ctx.fill();
+
+    ctx.restore();
+  }
 }
+
+class Pellet {
+  constructor(x,y){
+    this.x=x+(Math.random()-.5)*20;
+    this.y=y;
+    this.vy=0.4+Math.random()*0.6;
+    this.r=2.5+Math.random()*2;
+    this.eaten=false;
+    this.alpha=1;
+  }
+  update(){
+    if(!this.eaten){ this.vy=Math.min(this.vy+0.035,1.1); this.y+=this.vy; }
+    else { this.alpha=Math.max(0,this.alpha-0.07); }
+  }
+  draw(){
+    if(this.alpha<=0) return;
+    ctx.save();
+    ctx.globalAlpha=this.alpha;
+    ctx.beginPath();
+    ctx.ellipse(this.x,this.y,this.r,this.r*0.7,0,0,Math.PI*2);
+    ctx.fillStyle='#c8983a';
+    ctx.fill();
+    ctx.restore();
+  }
+  get dead(){ return this.eaten&&this.alpha<=0; }
+}
+
+const fishes = Array.from({length:8},()=>new Fish());
+const foods = [];
+let t=0;
+
+function loop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  t+=0.016;
+  for(let i=foods.length-1;i>=0;i--){
+    foods[i].update();
+    if(foods[i].dead||foods[i].y>canvas.height+20) foods.splice(i,1);
+  }
+  foods.forEach(f=>f.draw());
+  fishes.forEach(f=>{ f.update(t,foods.filter(p=>!p.eaten)); f.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+
+/* ====== DRAG & DROP FOOD BAG ====== */
+const bag     = document.getElementById('foodBag');
+const ghost   = document.getElementById('dragGhost');
+let dragging  = false;
+let dragX=0, dragY=0;
+
+// Support both mouse and touch
+function startDrag(cx,cy){
+  dragging=true;
+  dragX=cx; dragY=cy;
+  ghost.style.opacity='1';
+  ghost.style.left=cx-7+'px';
+  ghost.style.top =cy-7+'px';
+  bag.style.opacity='0.6';
+}
+function moveDrag(cx,cy){
+  if(!dragging) return;
+  dragX=cx; dragY=cy;
+  ghost.style.left=cx-7+'px';
+  ghost.style.top =cy-7+'px';
+}
+function endDrag(cx,cy){
+  if(!dragging) return;
+  dragging=false;
+  ghost.style.opacity='0';
+  bag.style.opacity='1';
+  // Drop 5 pellets at release point
+  for(let i=0;i<5;i++) foods.push(new Pellet(cx,cy));
+}
+
+bag.addEventListener('mousedown', e=>{ e.preventDefault(); startDrag(e.clientX,e.clientY); });
+window.addEventListener('mousemove', e=>{ moveDrag(e.clientX,e.clientY); });
+window.addEventListener('mouseup',  e=>{ endDrag(e.clientX,e.clientY); });
+
+bag.addEventListener('touchstart', e=>{ e.preventDefault(); const t=e.touches[0]; startDrag(t.clientX,t.clientY); },{passive:false});
+window.addEventListener('touchmove', e=>{ if(dragging){e.preventDefault(); const t=e.touches[0]; moveDrag(t.clientX,t.clientY);} },{passive:false});
+window.addEventListener('touchend',  e=>{ const t=e.changedTouches[0]; endDrag(t.clientX,t.clientY); });
 </script>
 </body>
 </html>
