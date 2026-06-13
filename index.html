@@ -20,13 +20,16 @@ html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 70% 50% at 78% 14%,rgba(200,230,250,.45),transparent 60%),linear-gradient(160deg,#c8e8f4 0%,#d8eff8 40%,#e4f4f8 70%,#eaf6f8 100%);}
 #fishCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.75;}
-#foodBag{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:20;cursor:grab;user-select:none;display:flex;flex-direction:column;align-items:center;gap:5px;}
+
+/* ---- Fish food glass jar (bottom center) ---- */
+#foodBag{position:fixed;right:22px;bottom:22px;z-index:20;cursor:grab;user-select:none;display:flex;flex-direction:column;align-items:center;gap:5px;}
 #foodBag:active{cursor:grabbing;}
-#bagLabel{font-family:var(--mono);font-size:.6rem;color:var(--ocean-deep);background:rgba(255,255,255,.88);padding:2px 7px;border-radius:6px;border:1px solid var(--line);pointer-events:none;letter-spacing:1px;}
-#bagSvg{pointer-events:none;}
-#bagCount{font-family:var(--mono);font-size:.6rem;color:var(--ocean-mid);background:rgba(255,255,255,.88);padding:2px 7px;border-radius:6px;border:1px solid var(--line);pointer-events:none;}
-#bagTip{font-family:var(--mono);font-size:.58rem;color:var(--muted);text-align:center;max-width:75px;line-height:1.3;pointer-events:none;}
+#bagLabel{font-family:var(--mono);font-size:.6rem;color:var(--ocean-deep);background:rgba(255,255,255,.88);padding:2px 7px;border-radius:6px;border:1px solid var(--line);pointer-events:none;letter-spacing:1px;order:2;}
+#bagSvg{pointer-events:none;order:1;filter:drop-shadow(0 4px 10px rgba(26,78,110,.18));}
+#bagCount{font-family:var(--mono);font-size:.6rem;color:var(--ocean-mid);background:rgba(255,255,255,.88);padding:2px 7px;border-radius:6px;border:1px solid var(--line);pointer-events:none;order:3;}
+#bagTip{font-family:var(--mono);font-size:.58rem;color:var(--muted);text-align:center;max-width:100px;line-height:1.3;pointer-events:none;order:4;}
 #dragGhost{position:fixed;z-index:30;pointer-events:none;opacity:0;transition:opacity .1s;font-family:var(--mono);font-size:10px;color:#c8a060;}
+
 .wrap{max-width:740px;margin:0 auto;padding:60px 40px 0;min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:1;}
 .view{display:none;flex:1}
 .view.active{display:flex;flex-direction:column;flex:1;animation:fade .22s ease both}
@@ -53,7 +56,8 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 .headshot-placeholder span{font-family:var(--mono);font-size:.6rem;color:var(--ocean-mid);letter-spacing:.5px;text-align:center;line-height:1.4;font-weight:500;}
 .headshot-upload-hint{font-family:var(--mono);font-size:.55rem;color:var(--muted);text-align:center;line-height:1.3;pointer-events:none;}
 
-#home{padding-bottom:60px;}
+/* ---- Home page: centered content ---- */
+#home{padding-bottom:90px;flex:1;display:flex;flex-direction:column;justify-content:center;}
 .home-name{font-family:var(--mono);font-size:2.2rem;font-weight:600;color:var(--ocean-deep);letter-spacing:-1px;margin-bottom:6px;padding-right:160px;}
 .home-name span{color:var(--ocean-mid);}
 .home-role{font-family:var(--mono);font-size:.8rem;color:var(--ocean-mid);letter-spacing:2px;margin-bottom:14px;text-transform:uppercase;}
@@ -120,25 +124,40 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
   .wrap{padding:40px 20px 0;}
   .home-name{font-size:1.6rem;padding-right:110px;}
   .tab-btn{font-size:.65rem;padding:10px 4px;}
-  #foodBag{right:8px;}
   #about-map{height:260px;}
   .headshot-slot{width:100px;height:100px;}
+  #foodBag{bottom:12px;}
+  #bagSvg{width:42px;height:52px;}
 }
 </style>
 </head>
 <body>
 <canvas id="fishCanvas"></canvas>
 <div id="lightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""/></div>
+
+<!-- Fish food glass jar -->
 <div id="foodBag">
   <div id="bagLabel">FISH FOOD</div>
-  <svg id="bagSvg" width="48" height="60" viewBox="0 0 58 72">
-    <path d="M10 22 Q8 68 29 70 Q50 68 48 22 Z" fill="#d4a44c" stroke="#b8883a" stroke-width="1.5"/>
-    <path d="M9 22 Q29 16 49 22 Q29 18 9 22 Z" fill="#b8883a"/>
-    <rect x="23" y="12" width="12" height="11" rx="3" fill="#8a6020" stroke="#6a4810" stroke-width="1"/>
-    <path d="M23 12 Q29 4 35 12" fill="none" stroke="#8a6020" stroke-width="2.5" stroke-linecap="round"/>
+  <svg id="bagSvg" width="52" height="64" viewBox="0 0 58 68">
+    <!-- glass jar body -->
+    <path d="M12 20 L12 56 Q12 64 29 64 Q46 64 46 56 L46 20 Z" fill="rgba(180,225,245,0.35)" stroke="#7fb8d8" stroke-width="1.8"/>
+    <!-- glass shine -->
+    <path d="M17 24 L17 54 Q17 59 24 60" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2" stroke-linecap="round"/>
+    <!-- fish food pellets inside -->
+    <circle cx="22" cy="48" r="2.6" fill="#d4a44c"/>
+    <circle cx="31" cy="52" r="2.3" fill="#c8983a"/>
+    <circle cx="38" cy="47" r="2.4" fill="#e0b25a"/>
+    <circle cx="26" cy="55" r="2.1" fill="#c8983a"/>
+    <circle cx="34" cy="56" r="2.2" fill="#d4a44c"/>
+    <circle cx="29" cy="44" r="2.3" fill="#e0b25a"/>
+    <!-- jar lid -->
+    <path d="M10 20 Q29 14 48 20 Q29 24 10 20 Z" fill="#7c9bb0" stroke="#5f7e90" stroke-width="1.5"/>
+    <ellipse cx="29" cy="19" rx="13" ry="3" fill="rgba(255,255,255,0.25)"/>
+    <!-- lid knob -->
+    <rect x="25" y="9" width="8" height="9" rx="2.5" fill="#7c9bb0" stroke="#5f7e90" stroke-width="1.2"/>
   </svg>
   <div id="bagCount">&#8734;</div>
-  <div id="bagTip">drag to feed!</div>
+  <div id="bagTip">drag &amp; drop to feed!</div>
 </div>
 <div id="dragGhost">&#183;</div>
 
