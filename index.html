@@ -155,6 +155,11 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 .project-deliverable-item::before{content:'→';font-family:var(--mono);color:var(--ocean-mid);font-size:.75rem;flex-shrink:0;}
 .project-deliverable-item:last-child{margin-bottom:0;}
 
+.project-map-section{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+.project-map-label{font-family:var(--mono);font-size:.62rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.project-map-wrap{width:100%;height:480px;border-radius:6px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 6px rgba(26,78,110,.08);}
+.project-map-wrap iframe{width:100%;height:100%;border:none;display:block;}
+.project-map-hint{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-top:8px;text-align:right;}
 .site-footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-bottom:48px;}
 @media(max-width:600px){
   .wrap{padding:40px 20px 0;}
@@ -165,6 +170,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
   .headshot-slot{width:100px;height:100px;}
   #foodBag{bottom:12px;}
   #bagSvg{width:42px;height:52px;}
+  .project-map-wrap{height:320px;}
 }
 </style>
 </head>
@@ -460,6 +466,18 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
           <span class="skill-tag">soil sampling</span>
           <span class="skill-tag">wet aggregate stability</span>
           <span class="skill-tag">organic matter</span>
+        </div>
+        <div class="project-map-section">
+          <div class="project-map-label">Interactive Map</div>
+          <div class="project-map-wrap">
+            <iframe
+              src="https://arcg.is/1mSWnb1"
+              title="Whiterock Conservancy Soil Health Map"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="project-map-hint">Open in full screen for best experience &rarr; <a href="https://arcg.is/1mSWnb1" target="_blank">arcg.is/1mSWnb1</a></div>
         </div>
       </div>
 
