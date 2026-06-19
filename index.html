@@ -40,7 +40,6 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
   position:sticky;
   top:0;
   z-index:10;
-  /* extend behind any content above/below during scroll */
   margin-left:-40px;
   margin-right:-40px;
   padding:10px 40px;
@@ -140,6 +139,22 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 .map-popup-name{font-weight:600;font-size:.88rem;color:var(--ocean-deep);margin-bottom:2px;}
 .map-popup-loc{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.3px;}
 .leaflet-popup-tip-container{display:none;}
+
+/* ---- Project cards ---- */
+.project-card{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:24px 26px;margin-bottom:20px;box-shadow:0 1px 6px rgba(26,78,110,.06);backdrop-filter:blur(4px);}
+.project-card:last-of-type{margin-bottom:0;}
+.project-card-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+.project-card-title{font-weight:600;font-size:1rem;color:var(--ocean-deep);}
+.project-card-date{font-family:var(--mono);font-size:.68rem;color:var(--muted);white-space:nowrap;}
+.project-card-org{font-family:var(--mono);font-size:.72rem;color:var(--ocean-mid);letter-spacing:.3px;margin-bottom:12px;}
+.project-card-body p{font-size:.91rem;color:var(--ink);line-height:1.75;margin-bottom:8px;}
+.project-card-body p:last-child{margin-bottom:0;}
+.project-deliverables{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);}
+.project-deliverables-label{font-family:var(--mono);font-size:.62rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.project-deliverable-item{display:flex;align-items:baseline;gap:8px;font-size:.85rem;color:var(--muted-dark);margin-bottom:5px;line-height:1.5;}
+.project-deliverable-item::before{content:'→';font-family:var(--mono);color:var(--ocean-mid);font-size:.75rem;flex-shrink:0;}
+.project-deliverable-item:last-child{margin-bottom:0;}
+
 .site-footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-bottom:48px;}
 @media(max-width:600px){
   .wrap{padding:40px 20px 0;}
@@ -180,7 +195,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
 <div class="wrap">
 
-  <!-- HOME (outside sticky nav so it scrolls away naturally) -->
+  <!-- HOME -->
   <div id="home-header-block">
     <div class="home-header">
       <div class="headshot-slot" id="headshotSlot">
@@ -205,17 +220,18 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
     </div>
   </div>
 
-  <!-- STICKY NAV (sticks once home header scrolls past) -->
+  <!-- STICKY NAV -->
   <div class="sticky-nav" id="stickyNav">
     <nav class="tab-nav">
       <button class="tab-btn active" onclick="showPage('about')" data-tab="about">About</button>
       <button class="tab-btn" onclick="showPage('skills')" data-tab="skills">Field &amp; Lab</button>
       <button class="tab-btn" onclick="showPage('engagement')" data-tab="engagement">Outreach</button>
       <button class="tab-btn" onclick="showPage('media')" data-tab="media">Media</button>
+      <button class="tab-btn" onclick="showPage('projects')" data-tab="projects">Projects</button>
     </nav>
   </div>
 
-  <!-- ALL TAB CONTENT (stacked, always in DOM, only one shown at a time) -->
+  <!-- TAB CONTENT -->
 
   <main id="about" class="view active">
     <div class="page-content">
@@ -407,6 +423,50 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
     </div>
   </main>
 
+  <!-- PROJECTS TAB -->
+  <main id="projects" class="view">
+    <div class="page-content">
+      <div class="page-header">
+        <div class="page-title">Projects &#x22C6;.&#x02D9;.</div>
+        <p class="page-tagline">Geospatial analysis, field data, and conservation tools built from the ground up.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-card-title">Soil Health Monitoring &amp; GIS Mapping</div>
+          <div class="project-card-date">2024 – 2025</div>
+        </div>
+        <div class="project-card-org">Whiterock Conservancy &middot; Coon Rapids, Iowa</div>
+        <div class="project-card-body">
+          <p>Whiterock Conservancy manages thousands of acres of farmland in central Iowa, and understanding the health of those soils is essential for making good land management decisions. I developed a multi-site soil health monitoring system to consolidate and communicate field data collected across the conservancy's farm properties.</p>
+          <p>The field component involved collecting soil samples from multiple farm sites and analyzing them for two key indicators: <strong>wet aggregate stability</strong> and <strong>organic matter content</strong>. Wet aggregate stability measures how well soil holds together when saturated — a proxy for structure, erosion resistance, and biological activity. Organic matter tracks the accumulation of decomposed plant and animal material, which drives nutrient cycling and water retention.</p>
+          <p>On the GIS side, I built a geospatial soil profiling system using <strong>SSURGO data</strong> from the USDA NRCS Web Soil Survey. SQL queries were used to pull soil attributes — including drainage class, saturated hydraulic conductivity (Ksat), erodibility (K factor), and soil texture — and join them to ArcGIS polygon layers representing each farm. The result was a set of symbolized soil maps that can be read at a glance, without any additional field calculations.</p>
+          <p>All workflows were documented in two formal <strong>Standard Operating Procedures (SOPs)</strong>, covering the full pipeline from ArcGIS Online data access through Excel VLOOKUP joins to final symbology. The monitoring data was compiled into a polished farm-by-farm report with styled sections, site profiles, and data notes for internal use at the conservancy.</p>
+        </div>
+        <div class="project-deliverables">
+          <div class="project-deliverables-label">Deliverables</div>
+          <div class="project-deliverable-item">Multi-site soil health report with wet aggregate stability and organic matter data</div>
+          <div class="project-deliverable-item">SSURGO-based ArcGIS soil attribute maps (drainage, Ksat, K factor, texture)</div>
+          <div class="project-deliverable-item">Two formal SOPs documenting the end-to-end GIS and data workflow</div>
+          <div class="project-deliverable-item">Excel VLOOKUP joins linking NRCS Web Soil Survey data to ArcGIS polygon layers</div>
+        </div>
+        <div class="skill-tags" style="margin-top:16px;">
+          <span class="skill-tag">ArcGIS</span>
+          <span class="skill-tag">SSURGO / NRCS</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Web Soil Survey</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">SOP development</span>
+          <span class="skill-tag">soil sampling</span>
+          <span class="skill-tag">wet aggregate stability</span>
+          <span class="skill-tag">organic matter</span>
+        </div>
+      </div>
+
+      <div class="site-footer">Coon Rapids, Iowa</div>
+    </div>
+  </main>
+
 </div><!-- .wrap -->
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -424,20 +484,16 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 const stickyNav=document.getElementById('stickyNav');
 window.addEventListener('scroll',()=>{stickyNav.classList.toggle('scrolled',window.scrollY>10);},{ passive:true });
 
-/* NAV - show/hide tabs, scroll to top of content */
+/* NAV */
 let mapInitialized=false;
-const TABS=['about','skills','engagement','media'];
+const TABS=['about','skills','engagement','media','projects'];
 
 function showPage(id){
-  /* hide all views */
   TABS.forEach(t=>{document.getElementById(t).classList.remove('active');});
-  /* show target */
   document.getElementById(id).classList.add('active');
-  /* update active button */
   document.querySelectorAll('.tab-btn').forEach(b=>{
     b.classList.toggle('active', b.dataset.tab===id);
   });
-  /* scroll so sticky nav is at top of viewport (just below) */
   const navTop=stickyNav.getBoundingClientRect().top+window.scrollY;
   if(window.scrollY > navTop){
     window.scrollTo({top: navTop - 8, behavior:'smooth'});
@@ -455,9 +511,7 @@ function initMap(){
   places.forEach(p=>{const popup=L.popup({closeButton:false,offset:[0,-4],className:'clean-popup'}).setContent(`<div class="map-popup"><div class="map-popup-name">${p.name}</div><div class="map-popup-loc">${p.location}</div></div>`);L.marker([p.lat,p.lng],{icon:dotIcon}).addTo(map).bindPopup(popup);});
 }
 
-/* =============================================
-   ASCII FISH ENGINE
-   ============================================= */
+/* ASCII FISH ENGINE */
 const canvas=document.getElementById('fishCanvas');
 const ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
@@ -511,8 +565,7 @@ class AsciiF{
   _fs(){return Math.round((this.lines.length>1?10:13)*this.scale);}
   _w(){return Math.max(...this.lines.map(l=>l.length))*this._fs()*0.6;}
   update(t,foods){
-    /* variable cruising speed: drift between speedMin and speedMax over time */
-    const wobble=(Math.sin(t*this.speedF+this.speedP)+1)/2; // 0..1
+    const wobble=(Math.sin(t*this.speedF+this.speedP)+1)/2;
     this.spd=this.baseSpd*(this.speedMin+wobble*(this.speedMax-this.speedMin));
     let best=null,bestD=260;
     foods.forEach(f=>{const d=Math.hypot(f.x-this.x,f.y-this.y);if(d<bestD){bestD=d;best=f;}});
