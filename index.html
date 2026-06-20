@@ -454,17 +454,14 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
         </div>
         <div class="project-card-org">Whiterock Conservancy &middot; Coon Rapids, Iowa</div>
         <div class="project-card-body">
-          <p>Whiterock Conservancy manages thousands of acres of farmland in central Iowa, and understanding the health of those soils is essential for making good land management decisions. I developed a multi-site soil health monitoring system to consolidate and communicate field data collected across the conservancy's farm properties.</p>
-          <p>The field component involved collecting soil samples from multiple farm sites and analyzing them for two key indicators: <strong>wet aggregate stability</strong> and <strong>organic matter content</strong>. Wet aggregate stability measures how well soil holds together when saturated — a proxy for structure, erosion resistance, and biological activity. Organic matter tracks the accumulation of decomposed plant and animal material, which drives nutrient cycling and water retention.</p>
-          <p>On the GIS side, I built a geospatial soil profiling system using <strong>SSURGO data</strong> from the USDA NRCS Web Soil Survey. SQL queries were used to pull soil attributes — including drainage class, saturated hydraulic conductivity (Ksat), erodibility (K factor), and soil texture — and join them to ArcGIS polygon layers representing each farm. The result was a set of symbolized soil maps that can be read at a glance, without any additional field calculations.</p>
-          <p>All workflows were documented in two formal <strong>Standard Operating Procedures (SOPs)</strong>, covering the full pipeline from ArcGIS Online data access through Excel VLOOKUP joins to final symbology. The monitoring data was compiled into a polished farm-by-farm report with styled sections, site profiles, and data notes for internal use at the conservancy.</p>
+          <p>Whiterock Conservancy manages 5,500 acres in central Iowa, where soil health shapes decisions across conservation, recreation, and agriculture. Understanding what's in the ground — and how it behaves — is foundational to good land management.</p>
+          <p>I developed an interactive mapping system that characterizes soil texture, organic matter, erodibility, drainage, and saturated hydraulic conductivity across the full Whiterock boundary. I also consolidated three years of farm soil sampling results and made them browsable year by year within the same map.</p>
+          <p>The project drew on SQL queries to pull soil attributes from the USDA NRCS Web Soil Survey, with ArcGIS Online used to join datasets to shapefile boundaries and build the final presentation layer.</p>
         </div>
         <div class="project-deliverables">
           <div class="project-deliverables-label">Deliverables</div>
-          <div class="project-deliverable-item">Multi-site soil health report with wet aggregate stability and organic matter data</div>
-          <div class="project-deliverable-item">SSURGO-based ArcGIS soil attribute maps (drainage, Ksat, K factor, texture)</div>
-          <div class="project-deliverable-item">Two formal SOPs documenting the end-to-end GIS and data workflow</div>
-          <div class="project-deliverable-item">Excel VLOOKUP joins linking NRCS Web Soil Survey data to ArcGIS polygon layers</div>
+          <div class="project-deliverable-item">Soil Properties Report</div>
+          <div class="project-deliverable-item">ArcGIS Web Map</div>
         </div>
         <div class="skill-tags" style="margin-top:16px;">
           <span class="skill-tag">ArcGIS</span>
