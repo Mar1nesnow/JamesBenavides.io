@@ -91,6 +91,98 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 .home-socials a:hover{color:var(--ocean-mid);border-color:var(--ocean-mid);}
 .home-socials span{color:var(--muted);font-size:.75rem;}
 
+/* ---- Resume link in socials ---- */
+.resume-link{
+  display:inline-flex;align-items:center;gap:5px;
+  color:var(--muted-dark) !important;
+  border-color:rgba(107,138,153,0.3) !important;
+  cursor:pointer;
+  font-family:var(--mono);
+  font-size:.78rem;
+}
+.resume-link:hover{color:var(--ocean-mid) !important;border-color:var(--ocean-mid) !important;}
+
+/* ---- Resume Modal ---- */
+#resumeModal{
+  position:fixed;inset:0;z-index:200;
+  display:none;align-items:flex-start;justify-content:center;
+  background:rgba(10,26,34,.72);
+  backdrop-filter:blur(6px);
+  padding:28px 16px 28px;
+  overflow-y:auto;
+}
+#resumeModal.active{display:flex;animation:fade .2s ease both;}
+#resumePanel{
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 12px 50px rgba(26,78,110,.28);
+  width:100%;max-width:680px;
+  padding:44px 52px 52px;
+  position:relative;
+  color:#1c2f3a;
+  font-family:'Inter',-apple-system,'Segoe UI',sans-serif;
+  font-size:14px;
+  line-height:1.65;
+}
+#resumeClose{
+  position:absolute;top:16px;right:18px;
+  background:none;border:none;cursor:pointer;
+  font-family:var(--mono);font-size:.75rem;color:var(--muted);
+  padding:4px 8px;border-radius:4px;
+  transition:background .15s,color .15s;
+}
+#resumeClose:hover{background:rgba(26,78,110,.07);color:var(--ocean-deep);}
+
+/* Resume inner styles */
+.r-name{font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:600;color:#1a4e6e;letter-spacing:-.5px;margin-bottom:4px;}
+.r-contact{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#6b8a99;letter-spacing:.3px;display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px;padding-bottom:16px;border-bottom:1.5px solid #b8d8e8;}
+.r-contact a{color:#2e7da6;border-bottom:1px solid rgba(46,125,166,0.3);text-decoration:none;}
+.r-contact a:hover{color:#1a4e6e;}
+.r-section{margin-bottom:22px;}
+.r-section:last-child{margin-bottom:0;}
+.r-section-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.82rem;letter-spacing:1.8px;text-transform:uppercase;
+  color:#2e7da6;font-weight:600;
+  margin-bottom:12px;padding-bottom:6px;
+  border-bottom:1px solid #b8d8e8;
+}
+.r-entry{margin-bottom:14px;}
+.r-entry:last-child{margin-bottom:0;}
+.r-entry-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:1px;}
+.r-entry-title{font-weight:600;font-size:.9rem;color:#1a4e6e;}
+.r-entry-date{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#6b8a99;white-space:nowrap;}
+.r-entry-sub{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+.r-entry-role{font-style:italic;font-size:.83rem;color:#4a7080;}
+.r-entry-loc{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#6b8a99;}
+.r-bullets{list-style:none;padding:0;margin:0;}
+.r-bullets li{padding-left:14px;position:relative;font-size:.84rem;color:#1c2f3a;margin-bottom:4px;line-height:1.55;}
+.r-bullets li::before{content:'–';position:absolute;left:0;color:#2e7da6;font-family:'JetBrains Mono',monospace;}
+.r-skills-grid{display:grid;grid-template-columns:1fr;gap:5px;}
+.r-skill-row{font-size:.83rem;color:#1c2f3a;line-height:1.5;}
+.r-skill-row strong{color:#1a4e6e;font-weight:600;}
+.r-inline-list{display:flex;flex-wrap:wrap;gap:5px 10px;font-size:.83rem;color:#4a7080;}
+.r-award-entry{margin-bottom:8px;}
+.r-award-entry:last-child{margin-bottom:0;}
+.r-award-name{font-weight:600;font-size:.85rem;color:#1a4e6e;}
+.r-award-note{font-size:.8rem;color:#4a7080;margin-top:1px;}
+.r-cert-block{font-size:.83rem;color:#1c2f3a;line-height:1.7;}
+.r-cert-block span{color:#6b8a99;}
+
+@media(max-width:600px){
+  #resumePanel{padding:32px 22px 36px;}
+  .r-name{font-size:1.25rem;}
+  .wrap{padding:40px 20px 0;}
+  .sticky-nav{margin-left:-20px;margin-right:-20px;padding:10px 20px;}
+  .home-name{font-size:1.6rem;padding-right:110px;}
+  .tab-btn{font-size:.65rem;padding:10px 4px;}
+  #about-map{height:260px;}
+  .headshot-slot{width:100px;height:100px;}
+  #foodBag{bottom:12px;}
+  #bagSvg{width:42px;height:52px;}
+  .project-map-wrap{height:320px;}
+}
+
 /* ---- Page content (inside each tab) ---- */
 .page-content{padding-top:28px;padding-bottom:90px;}
 .page-header{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--line);}
@@ -188,6 +280,205 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 <canvas id="fishCanvas"></canvas>
 <div id="lightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""/></div>
 
+<!-- Resume Modal -->
+<div id="resumeModal" onclick="if(event.target===this)closeResume()">
+  <div id="resumePanel">
+    <button id="resumeClose" onclick="closeResume()">✕ close</button>
+
+    <div class="r-name">James Benavides</div>
+    <div class="r-contact">
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:-2px;margin-right:4px;" xmlns="http://www.w3.org/2000/svg"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" stroke="#2e7da6" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke="#2e7da6" stroke-width="2" stroke-linejoin="round"/></svg><a href="http://jamesbenavides.xyz" target="_blank">jamesbenavides.xyz</a></span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="vertical-align:-2px;margin-right:4px;" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#2e7da6" stroke-width="2" fill="none"/><path d="M2 7l10 7 10-7" stroke="#2e7da6" stroke-width="2" stroke-linecap="round"/></svg><a href="mailto:Jamesbenavides003@gmail.com">Jamesbenavides003@gmail.com</a></span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="#2e7da6" style="vertical-align:-2px;margin-right:4px;" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452H17.01v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.585V9h3.3v1.561h.046c.46-.87 1.587-1.788 3.267-1.788 3.492 0 4.137 2.299 4.137 5.29v6.389zM5.337 7.433a1.92 1.92 0 1 1 0-3.84 1.92 1.92 0 0 1 0 3.84zM6.979 20.452H3.69V9h3.289v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.226.792 24 1.771 24h20.451C23.2 24 24 23.226 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><a href="https://www.linkedin.com/in/james-benavides/" target="_blank">LinkedIn</a></span>
+    </div>
+
+    <!-- Skills -->
+    <div class="r-section">
+      <div class="r-section-title">Skills</div>
+      <div class="r-skills-grid">
+        <div class="r-skill-row"><strong>Field &amp; Lab:</strong> Prescribed fire, chainsaw, skid steer, ATV/UTV, herbicide application, bag seining, side-scan sonar, water/soil sampling, YSI sonde (ProQuatro, 6600)</div>
+        <div class="r-skill-row"><strong>Data &amp; Software:</strong> RStudio, ArcGIS, Microsoft Office, SQL</div>
+        <div class="r-skill-row"><strong>Science Communication:</strong> Environmental education (K-12 &amp; adult public), research presentations, grant writing</div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="r-section">
+      <div class="r-section-title">Education</div>
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Bowdoin College</span>
+          <span class="r-entry-date">2021 – 2025</span>
+        </div>
+        <div class="r-entry-role">B.A., Marine Biology &amp; Gender Studies &nbsp;·&nbsp; Brunswick, ME</div>
+      </div>
+      <div class="r-entry" style="margin-top:10px;">
+        <div class="r-entry-head">
+          <span class="r-entry-title">DIS Study Abroad in Scandinavia</span>
+          <span class="r-entry-date">Jan – May 2024</span>
+        </div>
+        <div class="r-entry-role">Polar Biology &nbsp;·&nbsp; Copenhagen, DK</div>
+      </div>
+    </div>
+
+    <!-- Work -->
+    <div class="r-section">
+      <div class="r-section-title">Work Experience</div>
+
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Whiterock Conservancy | AmeriCorps</span>
+          <span class="r-entry-date">Dec 2025 – Present</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Land Operations and Outreach Support</span>
+          <span class="r-entry-loc">Coon Rapids, IA</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Executed prescribed burns across 500+ acres and led invasive species removal and timber stand improvement across 5,500 acres to restore native prairie and oak savanna ecosystems.</li>
+          <li>Delivered conservation education programming to 1,300+ participants including K-12 students and community members, covering ornithology, aquatic ecology, and watershed health.</li>
+          <li>Developing an ArcGIS soil composition map integrating 21 multi-year field sampling sites with USDA Web Soil Survey layers to support land management planning and reporting.</li>
+        </ul>
+      </div>
+
+      <div class="r-entry" style="margin-top:16px;">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Dickinson Marine Lab | Texas Parks and Wildlife</span>
+          <span class="r-entry-date">June – Sept 2025</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Coastal Fisheries Intern</span>
+          <span class="r-entry-loc">Dickinson, TX</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Conducted quantitative assessments of coastal fish communities and benthic habitats using bag seines, longlines, side-scan sonar, and creel surveys across 50+ sites throughout Galveston Bay and the Gulf of Mexico.</li>
+          <li>Designed and facilitated a harmful algal bloom identification and response workshop for 20 Park Rangers and Texas Master Naturalists, improving field recognition capacity by 90%.</li>
+        </ul>
+      </div>
+
+      <div class="r-entry" style="margin-top:16px;">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Darling Marine Center | University of Maine</span>
+          <span class="r-entry-date">June – Aug 2024</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Aquaculture Researcher</span>
+          <span class="r-entry-loc">Walpole, ME</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Quantified bag rotation dynamics driven by tidal energy using accelerometers and RStudio.</li>
+          <li>Correlated bag rotation profiles with oyster spat shell formation to optimize aquaculture protocols.</li>
+          <li>Managed 2 intertidal longline systems hosting 20+ floating bag units and 10,000+ oyster spat.</li>
+        </ul>
+      </div>
+
+      <div class="r-entry" style="margin-top:16px;">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Schiller Coastal Studies Center | Bowdoin College</span>
+          <span class="r-entry-date">June – Dec 2023</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Animal Behavior Researcher</span>
+          <span class="r-entry-loc">Brunswick, ME</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Quantified sea star thermal sensitivity thresholds across a 2°C range using RStudio regression modeling.</li>
+          <li>Engineered a controlled dark-room arena with calibrated light gradients to standardize scallop swimming behavior trials, recording and processing 200+ hours of animal movement with Tracker software.</li>
+          <li>Managed 60+ sea stars and scallops across flow-through tank systems for 6 months, maintaining a 95% survival rate.</li>
+        </ul>
+      </div>
+
+      <div class="r-entry" style="margin-top:16px;">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Duke University Marine Lab | Duke University</span>
+          <span class="r-entry-date">June – Aug 2022</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Microbial Oceanography Researcher</span>
+          <span class="r-entry-loc">Beaufort, NC</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Developed protocols for isolation of marine protists from North Carolina coastal waters, establishing a reproducible sampling framework for ongoing coastal biodiversity monitoring.</li>
+          <li>Analyzed dissolved organic/inorganic carbon, turbidity, and chlorophyll data to characterize coastal water quality.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Volunteer -->
+    <div class="r-section">
+      <div class="r-section-title">Volunteer Experience</div>
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <span class="r-entry-title">PAEnflowered</span>
+          <span class="r-entry-date">Jan 2026 – Present</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Data Entry Assistant</span>
+          <span class="r-entry-loc">Remote</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Cleaned and organized iNaturalist observation data to map native plant distributions across Pennsylvania state parks and forests.</li>
+          <li>Cross-referenced USDA hardiness zones, soil types, light requirements, fruiting periods, and bloom duration to build species-specific floral growth profiles.</li>
+          <li>Authored a conservation article for the PA Enflowered newsletter on native plant ecology.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Activities -->
+    <div class="r-section">
+      <div class="r-section-title">Activities</div>
+      <div class="r-entry">
+        <div class="r-entry-head">
+          <span class="r-entry-title">Bowdoin College Naturalist Club</span>
+          <span class="r-entry-date">Sept 2022 – May 2025</span>
+        </div>
+        <div class="r-entry-sub">
+          <span class="r-entry-role">Co-leader</span>
+          <span class="r-entry-loc">Brunswick, ME</span>
+        </div>
+        <ul class="r-bullets">
+          <li>Led accessible outdoor nature trips covering Maine ecologies, including bird walks, tide pooling, and amphibian walks.</li>
+          <li>Intersected art and nature observation with watercolor and journaling; organized conversations on nature-related internships.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="r-section">
+      <div class="r-section-title">Certifications</div>
+      <div class="r-cert-block">
+        Iowa Master Conservationist (2026) &nbsp;·&nbsp; Wildland Firefighter L-180, S-190 (2026)<br/>
+        <span>In progress:</span> Wildland Firefighter S-130, Green Iowa Grant Writing, Xerces Iowa Bumble Bee Surveyor
+      </div>
+    </div>
+
+    <!-- Awards -->
+    <div class="r-section">
+      <div class="r-section-title">Awards</div>
+      <div class="r-award-entry">
+        <div class="r-award-name">National Hispanic Scholar <span style="font-weight:400;color:#6b8a99;font-size:.8rem;">· 2023, 2024</span></div>
+      </div>
+      <div class="r-award-entry">
+        <div class="r-award-name">Biology Departmental Research Award <span style="font-weight:400;color:#6b8a99;font-size:.8rem;">· 2023</span></div>
+        <div class="r-award-note">$2,500 award to support research investigating temperature effects on sea star species.</div>
+      </div>
+      <div class="r-award-entry">
+        <div class="r-award-name">Joshua Chamberlain Scholar <span style="font-weight:400;color:#6b8a99;font-size:.8rem;">· 2021</span></div>
+        <div class="r-award-note">$3,000 award recognizing outstanding academic achievement and exceptional promise.</div>
+      </div>
+    </div>
+
+    <!-- Interests -->
+    <div class="r-section">
+      <div class="r-section-title">Interests</div>
+      <div class="r-inline-list">
+        <span>Watercolor</span><span>·</span><span>Tennis</span><span>·</span><span>Guitar</span><span>·</span><span>Cello</span><span>·</span><span>CD Collection</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- Fish food glass jar -->
 <div id="foodBag">
   <div id="bagLabel">FISH FOOD</div>
@@ -232,6 +523,7 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
     <div class="home-socials" style="margin-bottom:28px;">
       <a href="https://www.linkedin.com/in/james-benavides/" target="_blank">LinkedIn</a>
       <a href="mailto:JamesBenavides003@gmail.com">Email</a>
+      <a href="#" class="resume-link" onclick="event.preventDefault();openResume()">Resume</a>
       <span>Coon Rapids, Iowa</span>
     </div>
   </div>
@@ -507,6 +799,11 @@ a:hover{color:var(--ocean-deep);border-color:var(--ocean-mid)}
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+/* RESUME MODAL */
+function openResume(){document.getElementById('resumeModal').classList.add('active');document.body.style.overflow='hidden';}
+function closeResume(){document.getElementById('resumeModal').classList.remove('active');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeResume();closeLightbox();}});
+
 /* GALLERIES */
 const photoLists={'gallery-stewardship':['Stewardship1.jpg','Stewardship2.jpg'],'gallery-fire':['Fire1.jpg','Fire2.jpg'],'gallery-fisheries':['Fisheries1.jpg','Fisheries2.jpg'],'gallery-research':['Research1.jpg','Research3.jpg','Research4.jpeg'],'gallery-education':['Education1.jpg','Education2.jpg','Education3.jpg'],'gallery-surveying':['Surveying1.jpg'],'gallery-tabling':['Tabling1.jpg']};
 function folderFor(id){return id.replace('gallery-','');}
@@ -514,7 +811,6 @@ function renderGalleries(){Object.keys(photoLists).forEach(id=>{const container=
 renderGalleries();
 function openLightbox(src){document.getElementById('lightboxImg').src=src;document.getElementById('lightbox').classList.add('active');}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 
 /* STICKY NAV shadow on scroll */
 const stickyNav=document.getElementById('stickyNav');
